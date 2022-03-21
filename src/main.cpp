@@ -5,8 +5,7 @@
 using std::string;
 using std::cout;
 
-int main()
-{
+int main() {
     Automata DrinkMachine;
     DrinkMachine.on();
     cout << "Machine is on!" << '\n';
