@@ -1,7 +1,7 @@
 // Copyright 2022 Rastuharem
 #include "Automata.h"
 
-using namespace std;
+using std::string;
 
 Automata::Automata() {
     cash = 0;
