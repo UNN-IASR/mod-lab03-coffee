@@ -3,84 +3,84 @@
 using namespace std;
 
 Automata::Automata() {
-	cash = 0;
-	state = Off;
+    cash = 0;
+    state = Off;
 }
 
 void Automata::on() {
-	if (state == Off) {
-		state = Wait;
-	}
+    if (state == Off) {
+        state = Wait;
+    }
 }
 
 void Automata::off() {
-	if (state == Wait) {
-		state = Off;
-	}
+    if (state == Wait) {
+        state = Off;
+    }
 }
 
 void Automata::coin(int money) {
-	if (state == Wait) {
-		state = Accept;
-	}
-	if (state == Accept) {
-		cash += money;
-	}
+    if (state == Wait) {
+        state = Accept;
+    }
+    if (state == Accept) {
+        cash += money;
+    }
 }
 
 vector<string> Automata::getMenu() {
-	return menu;
+    return menu;
 }
 
 States Automata::getState() {
-	return state;
+    return state;
 }
 
 int Automata::choice(string drink) {
-	int index = NAN;
-	for (int i = 0; i < menu.size(); i++) {
-		if (drink == menu[i]) {
-			if (state == Accept) {
-				state = Check;
-				index = i;
-			}
-		}
-	}
-	return index;
+    int index = -1;
+    for (int i = 0; i < menu.size(); i++) {
+        if (drink == menu[i]) {
+            if (state == Accept) {
+                state = Check;
+                index = i;
+            }
+        }
+    }
+    return index;
 }
 
 bool Automata::check(int index) {
-	if (state == Check) {
-		if (cash >= prices[index]) {
-			return true;
-		}
-	}
-	return false;
+    if (state == Check) {
+        if (cash >= prices[index]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 int Automata::cancel() {
-	int change = 0;
-	if (state == Accept || state == Check) {
-		change = cash;
-		cash = 0;
-		state = Wait;
-	}
-	return change;
+    int change = 0;
+    if (state == Accept || state == Check) {
+        change = cash;
+        cash = 0;
+        state = Wait;
+    }
+    return change;
 }
 
 void Automata::cook(int index) {
-	if (state == Check) {
-		state = Cook;
-		cash -= prices[index];
-	}
+    if (state == Check) {
+        state = Cook;
+        cash -= prices[index];
+    }
 }
 
 int Automata::finish() {
-	int change = 0;
-	if (state == Cook) {
-		state = Wait;
-		change = cash;
-		cash = 0;
-	}
-	return change;
+    int change = 0;
+    if (state == Cook) {
+        state = Wait;
+        change = cash;
+        cash = 0;
+    }
+    return change;
 }
