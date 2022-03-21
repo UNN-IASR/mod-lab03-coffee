@@ -18,7 +18,7 @@ class Automata {
  private:
     int cash;
     States state;
-    const vector<string> menu = 
+    const vector<string> menu =
     { "Strawberry cocktail", "Chokolate cocktail",
         "Black tea", "Green tea", "Coffee" };
     const vector<int> prices = { 60, 70, 40, 45, 50 };
