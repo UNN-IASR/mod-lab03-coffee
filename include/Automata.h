@@ -1,3 +1,4 @@
+// Copyright 2022 Rastuharem
 #pragma once
 #include <vector>
 #include <string>
