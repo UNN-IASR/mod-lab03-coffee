@@ -2,7 +2,8 @@
 #include <iostream>
 #include "Automata.h"
 
-using namespace std;
+using std::string;
+using std::cout;
 
 int main()
 {
