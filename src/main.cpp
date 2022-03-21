@@ -1,3 +1,4 @@
+// Copyright 2022 Rastuharem
 #include <iostream>
 #include "Automata.h"
 
