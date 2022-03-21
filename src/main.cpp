@@ -12,13 +12,14 @@ int main()
     DrinkMachine.coin(50);
     int drink = DrinkMachine.choice("Black tea");
     if (DrinkMachine.check(drink)) {
-        cout << "Order accepted!"<<'\n';
+        cout << "Order accepted!" << '\n';
         DrinkMachine.cook(drink);
         int change = DrinkMachine.finish();
         cout << "Drink is ready! Please, take your change: " << change << '\n';
     } else {
         int change = DrinkMachine.cancel();
-        cout << "Your order is cancelled :(. Please, take your change: " << change << '\n';
+        cout << "Your order is cancelled :(. Please, take your change: "
+            << change << '\n';
     }
     DrinkMachine.off();
     cout << "Machine is shutting down..." << '\n';
