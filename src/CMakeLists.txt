@@ -21,7 +21,7 @@ target_link_libraries(${PROJECT_NAME}.info
   ${PROJECT_NAME})
 
 
-install(TARGETS ${PROJECT_NAME}
+Install(TARGETS ${PROJECT_NAME}
 		LIBRARY DESTINATION "${lib_dest}"
     ARCHIVE DESTINATION "${lib_dest}"
     COMPONENT library)
