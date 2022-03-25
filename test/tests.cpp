@@ -6,7 +6,7 @@
 TEST(taskA, test1) {
   Automata Machine = Automata();
   Machine.on();
-  State res = Machine.getState();
+  States res = Machine.getState();
   EXPECT_EQ(Wait, res);
 }
 
