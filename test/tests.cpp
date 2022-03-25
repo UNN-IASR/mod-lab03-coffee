@@ -4,14 +4,14 @@
 #include "Automata.h"
 
 TEST(taskA, test1) {
-  Automata Machine = new Automata();
+  Automata Machine = Automata();
   Machine.on();
   State res = Machine.getState();
   EXPECT_EQ(Wait, res);
 }
 
 TEST(taskA, test2) {
-  Automata Machine = new Automata();
+  Automata Machine = Automata();
   Machine.on();
   Machine.coin(5);
   int change = Machine.cancel();
@@ -19,7 +19,7 @@ TEST(taskA, test2) {
 }
 
 TEST(taskA, test3) {
-  Automata Machine = new Automata();
+  Automata Machine = Automata();
   Machine.on();
   Machine.coin(5);
   int index = Machine.choice("Black tea");
@@ -28,7 +28,7 @@ TEST(taskA, test3) {
 }
 
 TEST(taskA, test4) {
-  Automata Machine = new Automata();
+  Automata Machine = Automata();
   Machine.on();
   Machine.coin(50000);
   int index = Machine.choice("Black tea");
@@ -37,7 +37,7 @@ TEST(taskA, test4) {
 }
 
 TEST(taskA, test5) {
-  Automata Machine = new Automata();
+  Automata Machine = Automata();
   Machine.on();
   Machine.off();
   States res = Machine.getState();
