@@ -23,7 +23,7 @@ TEST(taskA, test3) {
   Machine.on();
   Machine.coin(5);
   int index = Machine.choice("Black tea");
-  bool res = Machine.getState();
+  bool res = Machine.check(index);
   EXPECT_EQ(false, res);
 }
 
@@ -32,7 +32,7 @@ TEST(taskA, test4) {
   Machine.on();
   Machine.coin(50000);
   int index = Machine.choice("Black tea");
-  bool res = Machine.getState();
+  bool res = Machine.check(index);
   EXPECT_EQ(true, res);
 }
 
