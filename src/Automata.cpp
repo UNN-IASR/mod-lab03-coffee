@@ -5,10 +5,10 @@ Automata::Automata() {
   state = OFF;
   cash = 0;
   selection = -1;
-  menu[0] = "Кофе";
-  menu[1] = "Горячий кофе";
-  menu[2] = "Очень горячий кофе";
-  menu[3] = "Кофесодержащий продукт";
+  menu[0] = "something1";
+  menu[1] = "something2";
+  menu[2] = "something3";
+  menu[3] = "something4";
   prices[0] = 100;
   prices[1] = 110;
   prices[2] = 90;
@@ -26,7 +26,7 @@ void Automata::coin(int sum) {
   state = ACCEPT;
 }
 void Automata::getMenu() {
-  for (int i = 0; i < 4; i++)	{
+  for (int i = 0; i < 4; i++) {
     std::cout << menu[i] << " " << prices[i] << '\n';
   }
 }
@@ -44,8 +44,7 @@ void Automata::check() {
   }
   if (cash < prices[selection]) {
     state = WAIT;
-  }
-  else {
+  } else {
     isChecked = true;
   }
 }
