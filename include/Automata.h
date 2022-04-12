@@ -6,6 +6,7 @@
 
 class Automata {
 private:
+
   int cash;
   int selection;
   std::string menu[4];
@@ -13,6 +14,7 @@ private:
   bool isChecked;
 
 public:
+
   enum States {
     OFF, WAIT, ACCEPT, CHECK, COOK, FINISH
   };
