@@ -5,16 +5,14 @@
 #include <string>
 
 class Automata {
-private:
-
+ private:
   int cash;
   int selection;
   std::string menu[4];
   int prices[4];
   bool isChecked;
 
-public:
-
+ public:
   enum States {
     OFF, WAIT, ACCEPT, CHECK, COOK, FINISH
   };
