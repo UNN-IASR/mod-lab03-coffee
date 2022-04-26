@@ -1,3 +1,4 @@
+// Copyright 2022 UNN-IASR
 #include "Automata.h"
 using namespace std;
 string product_to_str(Product product) {
