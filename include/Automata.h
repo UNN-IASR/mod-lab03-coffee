@@ -1,12 +1,18 @@
+// Copyright 2022 UNN-IASR
+#pragma once
 #include <vector>
 #include <map>
-using namespace std;
+#include <iostream>
+#include <string>
+
+using std::string;
+
 enum class State {
-	OFF,
-	WAIT,
-	ACCEPT,
-	READY,
-	COOK
+    OFF,
+    WAIT,
+    ACCEPT,
+    READY,
+    COOK
 };
 
 enum class Act {
@@ -21,11 +27,11 @@ enum class Act {
 };
 
 enum class Product {
-	LATTE,
-	CAPPUCINO,
-	ESPRESSO,
-	AMERICANO,
-	FLATWHITE
+    LATTE,
+    CAPPUCINO,
+    ESPRESSO,
+    AMERICANO,
+    FLATWHITE
 };
 
 
@@ -34,28 +40,28 @@ template<typename State, typename Act>
 class Automata {
 	map<pair<State, Act>, State> transitions;
 	State current_state;
-public:
+ public:
 	Automata(map<pair<State, Act>, State> transitions, State start_state);
-	Automata(){};
+	Automata(){}
 	void do_transition(Act act);
 	State getState();
 };
 
 class CoffeeMachine {
-public:
-	void on();
-	void off();
-	void coin(int);
-	void printMenu();
-	void choice(Product);
-	void cancel();
-	void cook();
-	void finish();
+ public:
+    void on();
+    void off();
+    void coin(int);
+    void printMenu();
+    void choice(Product);
+    void cancel();
+    void cook();
+    void finish();
 	State getState();
 	CoffeeMachine(map<Product, int> menu);
 	//standart menu
 	CoffeeMachine();
-private:
+ private:
 	int cash;
 	map<Product, int> menu;
 	Product chosen_product;
