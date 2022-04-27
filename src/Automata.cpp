@@ -5,7 +5,6 @@ Automata::Automata() {
     state = OFF;
     cash = 0;
     selectedItem = -1;
-    isChecked = false;
 
     initMenu();
 }
@@ -55,7 +54,7 @@ bool Automata::check() {
 void Automata::cancel() {
     if (state == OFF)
         return;
-    isChecked = false;
+
     state = WAIT;
     cash = 0;
 }
@@ -64,8 +63,9 @@ void Automata::cook() {
     if (check()) {
         cash -= prices[selectedItem];
         state = COOK;
-    } else
+    } else {
         state = WAIT;
+    }
 }
 
 void Automata::finish() {
