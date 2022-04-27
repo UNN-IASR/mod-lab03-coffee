@@ -8,14 +8,14 @@
 #define MENU_ITEMS_COUNT 5
 
 class Automata {
-private:
+ private:
     int cash;
     int selectedItem;
     std::string menu[MENU_ITEMS_COUNT];
     int prices[MENU_ITEMS_COUNT];
-    bool isChecked;
+    void initMenu();
 
-public:
+ public:
     enum States {
         OFF, WAIT, ACCEPT, CHECK, COOK, FINISH
     };
@@ -43,7 +43,4 @@ public:
     void cook();
 
     void finish();
-
-private:
-    void initMenu();
 };
