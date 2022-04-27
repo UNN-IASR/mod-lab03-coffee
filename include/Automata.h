@@ -1,9 +1,10 @@
+// Copyright 2022 UNN-IASR
+#pragma once
+
 #include <stdio.h>
 #include <iostream>
 #include <string>
 
-#ifndef MOD_LAB03_COFFEE_AUTOMATA_H
-#define MOD_LAB03_COFFEE_AUTOMATA_H
 #define MENU_ITEMS_COUNT 5
 
 class Automata {
@@ -46,5 +47,3 @@ public:
 private:
     void initMenu();
 };
-
-#endif //MOD_LAB03_COFFEE_AUTOMATA_H
