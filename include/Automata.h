@@ -1,6 +1,7 @@
 #include <vector>
 #include <map>
 #include <utility>
+#include <string>
 using std::string;
 enum class State {
     OFF,
@@ -40,7 +41,7 @@ class Automata {
     Automata(){};
     void do_transition(Act act);
     State getState();
-};
+}
 
 class CoffeeMachine {
  public:
