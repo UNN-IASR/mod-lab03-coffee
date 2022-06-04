@@ -1,3 +1,5 @@
+// Copyright 2022 UNN-IASR
+
 #include "Automata.h"
 using std::cout;
 using std::endl;
@@ -80,8 +82,7 @@ void Automata::cancel() {
     if (state == CHECK || state == ACCEPT) {
         cash = 0;
         state = WAIT;
-    }
-    else {
+    } else {
         cout << "The operation cannot be canceled now" << endl;
     }
 }
