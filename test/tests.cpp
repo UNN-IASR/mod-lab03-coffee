@@ -58,7 +58,8 @@ TEST(task1, test6) {
     Automat1.off();
     STATES result = Automat1.getState();
     EXPECT_EQ(OFF, result);
-  
+}
+
 TEST(task2, test1) {
     Automata Automat1;
     Automat1.on();
