@@ -21,7 +21,7 @@ class Automata {
   void cancel();
   void cook();
   void finish();
-  
+
  private:
   int cash;
   string* menu;
