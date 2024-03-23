@@ -1,7 +1,7 @@
 // Copyright 2022 GHA Test Team
 
 #include <gtest/gtest.h>
-#include "Automata.h
+#include "Automata.h"
 
 TEST(fun_on, run) {
   Automata a;
