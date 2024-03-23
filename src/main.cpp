@@ -5,5 +5,5 @@
 int main() {
     Automata a;
     a.on();
-    states st = a.getState();   
+    states st = a.getState();
 }
