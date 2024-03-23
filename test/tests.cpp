@@ -1,7 +1,6 @@
-// Copyright 2022 GHA Test Team
-
-#include <gtest/gtest.h>
+// Copyright 2024 alenkaLo
 #include "Automata.h"
+#include <gtest/gtest.h>
 
 TEST(fun_on, run) {
   Automata a;
@@ -11,8 +10,8 @@ TEST(fun_on, run) {
 }
 
 TEST(fun_on, ignore) {
-	Automata a(state_cook);
-	a.on();
-	states st = a.getState();
-	EXPECT_EQ(state_cook, st);
+    Automata a(state_cook);
+    a.on();
+    states st = a.getState();
+    EXPECT_EQ(state_cook, st);
 }
