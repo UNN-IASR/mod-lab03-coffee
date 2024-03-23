@@ -1,3 +1,4 @@
+// Copyright 2024 alenkaLo
 #ifndef INCLUDE_AUTOMATA_H_
 #define INCLUDE_AUTOMATA_H_
 #include <iostream>
