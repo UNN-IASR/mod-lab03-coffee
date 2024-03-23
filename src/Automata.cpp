@@ -29,8 +29,7 @@ void Automata::coin(int sum) {
     if (state == state_accept) {
         cash += sum;
         std::cout << "Taken summa: " << sum << std::endl;
-    }
-    else
+    } else
         state = state;
 }
 void Automata::setMenu() {
@@ -48,8 +47,7 @@ void Automata::finish() {
     if (state == state_finish) {
         state = state_wait;
         std::cout << "thank for order)" << std::endl;
-    }
-    else
+    } else
         state = state;
 }
 void Automata::cook() {
@@ -65,11 +63,9 @@ void Automata::check() {
         if (cash >= prices[n]) {
             state = state_cook;
             cook();
-        }
-        else
+        } else
             std::cout << "Not amout money";
-    }
-    else
+    } else
         state = state;
 }
 void Automata::choice(int num) {
@@ -77,8 +73,7 @@ void Automata::choice(int num) {
         n = num;
         state = state_check;
         check();
-    }
-    else
+    } else
         state = state;
 }
 void Automata::cancel() {
