@@ -10,7 +10,7 @@ Automata::Automata() {
 }
 
 Automata::Automata(states st) {
-	state = state_off;
+	state = st;
 	cash = 0;
 }
 void Automata::on() {
