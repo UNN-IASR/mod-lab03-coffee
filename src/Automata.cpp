@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-
 Automata::Automata() {
 	state = state_off;
 	cash = 0;
