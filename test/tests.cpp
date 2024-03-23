@@ -45,7 +45,7 @@ TEST(correct_transition, test5) {
 TEST(correct_transition, test6) {
     Automata a;
     std::vector <std::string> s = a.getMenu();
-    std::stringstream ss(s);
+    std::stringstream ss(s[0]);
     std::string name;
     std::getline(ss, name, ' ');
     int coins;
