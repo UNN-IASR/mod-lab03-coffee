@@ -28,7 +28,7 @@ TEST(fun_choise, test4) {
     Automata a(state_accept);
     a.choice(1);
     states st = a.getState();
-    EXPECT_EQ(state_wait, st);
+    EXPECT_EQ(state_check, st);
 }
 
 TEST(fun_check, test5) {
