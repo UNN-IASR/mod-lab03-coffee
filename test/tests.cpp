@@ -49,9 +49,9 @@ TEST(fun_check, test7) {
     EXPECT_EQ(state_check, st);
 }
 
-TEST(fun_cook, test6) {
-    Automata a(state_cook);
-    a.cook();
+TEST(fun_finish, test6) {
+    Automata a(state_finish);
+    a.finish();
     states st = a.getState();
     EXPECT_EQ(state_wait, st);
 }
