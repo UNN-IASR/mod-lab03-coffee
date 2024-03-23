@@ -29,4 +29,4 @@ class Automata {
     void finish();
 };
 
-#endif  // INCLUDE_AUTOMATA_H
+#endif  // INCLUDE_AUTOMATA_H_
