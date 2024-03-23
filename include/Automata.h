@@ -1,3 +1,5 @@
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
 #include <iostream>
 #include <string>
 #include <vector>
@@ -30,3 +32,4 @@ public:
     void cook();
     void finish();
 };
+#endif  // INCLUDE_AUTOMATA_H_
