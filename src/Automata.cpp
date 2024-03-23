@@ -16,7 +16,7 @@ Automata::Automata(states st) {
 void Automata::on() {
     if (state == state_off)
         state = state_on;
-    else 
+    else
         state = state;
 }
 
