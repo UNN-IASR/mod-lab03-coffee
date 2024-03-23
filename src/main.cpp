@@ -5,5 +5,7 @@
 int main() {
     Automata a;
     a.on();
-    states st = a.getState();
+    a.setMenu();
+    a.coin(200);
+    a.choice(0);
 }
