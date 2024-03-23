@@ -6,25 +6,27 @@
 #include <vector>
 
 enum states {
-    state_on, state_off, state_cook, state_wait,
-    state_accept, state_check, state_error, state_finish};
+    state_off, state_cook, state_wait,
+    state_accept, state_check, state_finish
+};
 
 class Automata {
- private:
+private:
     int cash;
-    std::vector <std::string> menu;
-    std::vector <int> prices;
+    std::vector <std::string> menu = { "1. latte","2. americano","3. tea" };
+    std::vector <int> prices = { 150, 130, 50 };
     states state;
- public:
+    int n;
+public:
     Automata();
     explicit Automata(states);
     void on();
     void off();
     void coin(int);
-    void setMenu(const std::string);
+    void setMenu();
     states getState();
-    bool choice(std::string);
-    bool check(const std::string);
+    void choice(int);
+    void check();
     void cancel();
     void cook();
     void finish();
