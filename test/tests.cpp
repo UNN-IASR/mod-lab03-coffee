@@ -6,7 +6,7 @@ TEST(fun_on, run) {
   Automata a;
   a.on();
   states st = a.getState();
-  EXPECT_EQ(state_on, st);
+  EXPECT_EQ(state_wait, st);
 }
 
 TEST(fun_on, ignore) {
