@@ -1,4 +1,4 @@
-// Copyright 2024 StatsenkoArs
+// Copyright 2024 alenkaLo
 #include "Automata.h"
 #include <string>
 #include <vector>
