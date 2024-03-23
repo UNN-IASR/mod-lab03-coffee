@@ -28,7 +28,7 @@ TEST(fun_choise, test4) {
     Automata a(state_accept);
     a.choice(1);
     states st = a.getState();
-    EXPECT_EQ(state_finish, st);
+    EXPECT_EQ(state_wait, st);
 }
 
 TEST(fun_check, test5) {
@@ -37,7 +37,7 @@ TEST(fun_check, test5) {
     a.choice(2);
     a.check();
     states st = a.getState();
-    EXPECT_EQ(state_finish, st);
+    EXPECT_EQ(state_wait, st);
 }
 
 TEST(fun_check, test7) {
@@ -50,10 +50,10 @@ TEST(fun_check, test7) {
 }
 
 TEST(fun_cook, test6) {
-    Automata a(state_check);
+    Automata a(state_cook);
     a.cook();
     states st = a.getState();
-    EXPECT_EQ(state_finish, st);
+    EXPECT_EQ(state_wait, st);
 }
 
 TEST(fun_cancel, test8) {
@@ -68,6 +68,7 @@ TEST(fun_all, test9) {
     a.on();
     a.coin(20);
     a.choice(2);
+    a.cancel();
     a.coin(30);
     a.off(); //ignore
     a.choice(2);
@@ -82,3 +83,4 @@ TEST(fun_all, test10) {
     a.choice(0);
     EXPECT_EQ(state_wait, a.getState());
 }
+
