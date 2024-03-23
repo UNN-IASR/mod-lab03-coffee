@@ -1,6 +1,7 @@
 // Copyright 2022 GHA Test Team
 
 #include <gtest/gtest.h>
+#include <sstream>
 #include "Automata.h"
 
 TEST(correct_transition, test1) {
