@@ -1,6 +1,4 @@
-// 3.CoffeMashina.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
+// Copyright 2024 alenkaLo
 #include <iostream>
 #include "Automata.h"
 
