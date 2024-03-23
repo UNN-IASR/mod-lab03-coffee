@@ -23,7 +23,7 @@ class Automata {
     void coin(int);
     void setMenu(const std::string);
     states getState();
-    bool choice(string);
+    bool choice(std::string);
     bool check(const std::string);
     void cancel();
     void cook();
