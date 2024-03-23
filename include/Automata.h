@@ -11,13 +11,13 @@ enum states {
 };
 
 class Automata {
-private:
+ private:
     int cash;
-    std::vector <std::string> menu = { "1. latte","2. americano","3. tea" };
+    std::vector <std::string> menu = { "1. latte", "2. americano", "3. tea" };
     std::vector <int> prices = { 150, 130, 50 };
     states state;
     int n;
-public:
+ public:
     Automata();
     explicit Automata(states);
     void on();
