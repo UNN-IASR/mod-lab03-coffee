@@ -20,20 +20,24 @@ void Automata::off() {
 }
 
 int Automata::coin() {
-    if (state = WAIT) state = ACCEPT;
-    cash++;
+    if (state == WAIT) state = ACCEPT;
+    if (state == ACCEPT) {
+        cash++;
+    }
     return cash;
 }
 
 void Automata::choice(std::string choice) {
     if (state == ACCEPT) state = CHECK;
-    for (std::string s : menu) {
-        if (s == choice) {
-            int ind = std::distance(menu.begin(),
-                std::find(menu.begin(), menu.end(), s));
-            if (cash >= prices[ind]) {
-                cash -= prices[ind];
-                cook();
+    if (state == CHECK) {
+        for (std::string s : menu) {
+            if (s == choice) {
+                int ind = std::distance(menu.begin(),
+                    std::find(menu.begin(), menu.end(), s));
+                if (cash >= prices[ind]) {
+                    cash -= prices[ind];
+                    cook();
+                }
             }
         }
     }
