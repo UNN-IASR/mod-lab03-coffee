@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 enum STATES { OFF, WAIT, ACCEPT, CHECK, COOK };
 
