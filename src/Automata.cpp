@@ -9,14 +9,14 @@ Automata::Automata() {
 }
 
 Automata::Automata(states st) {
- state = st;
+	state = st;
 	cash = 0;
 }
 
 void Automata::on() {
 	if (state == state_off)
 		state = state_on;
-	else 
+	else
 		state = state;
 }
 
