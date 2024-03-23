@@ -52,7 +52,7 @@ TEST(correct_transition, test6) {
     std::string buff;
     std::getline(ss, buff, ' ');
     std::getline(ss, buff, ' ');
-    coins = std::atoi(buff);
+    coins = std::stoi(buff);
     a.on();
     for (int i = 0; i < coins; i++)
         a.coin();
@@ -64,14 +64,14 @@ TEST(correct_transition, test6) {
 TEST(correct_transition, test7) {
     Automata a;
     std::vector <std::string> s = a.getMenu();
-    std::stringstream ss(s);
+    std::stringstream ss(s[0]);
     std::string name;
     std::getline(ss, name, ' ');
     int coins;
     std::string buff;
     std::getline(ss, buff, ' ');
     std::getline(ss, buff, ' ');
-    coins = std::atoi(buff);
+    coins = std::stoi(buff);
     a.on();
     for (int i = 0; i < coins - 1; i++)
         a.coin();
@@ -83,14 +83,14 @@ TEST(correct_transition, test7) {
 TEST(correct_transition, test8) {
     Automata a;
     std::vector <std::string> s = a.getMenu();
-    std::stringstream ss(s);
+    std::stringstream ss(s[0]);
     std::string name;
     std::getline(ss, name, ' ');
     int coins;
     std::string buff;
     std::getline(ss, buff, ' ');
     std::getline(ss, buff, ' ');
-    coins = std::atoi(buff);
+    coins = std::stoi(buff);
     a.on();
     for (int i = 0; i < coins - 1; i++)
         a.coin();
