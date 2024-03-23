@@ -1,7 +1,7 @@
 // Copyright 2024 Danil Volkov
 
-#ifndef AUTOMATA_H
-#define AUTOMATA_H
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
 
 #include <vector>
 #include <string>
@@ -33,4 +33,4 @@ class Automata {
 };
 
 
-#endif  // AUTOMATA_H
+#endif  // INCLUDE_AUTOMATA_H_

@@ -61,7 +61,9 @@ void Automata::getMenu() {
                 << " - " << prices[i] << " rub." << std::endl;
         }
     } else {
-        std::cout << "The function is not available in this state!" << std::endl;
+        std::cout <<
+            "The function is not available in this state!"
+            << std::endl;
     }
 }
 
@@ -105,7 +107,8 @@ void Automata::cancel() {
 
 void Automata::cook(int choice) {
     cash -= prices[choice - 1];
-    std::cout << "Your " << menu[choice - 1] << " is getting ready." << std::endl;
+    std::cout << "Your " << menu[choice - 1]
+        << " is getting ready." << std::endl;
     state = COOK;
     finish(choice);
 }
