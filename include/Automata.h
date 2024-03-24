@@ -1,3 +1,5 @@
+// Copyright 2024 Anna Chernyadeva
+
 #ifndef INCLUDE_AUTOMATA_H_
 #define INCLUDE_AUTOMATA_H_
 
