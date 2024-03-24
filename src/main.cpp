@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Automata.h"
 
-void Work1(Automata vendingMachine){
+void Work1(Automata vendingMachine) {
 vendingMachine.on();
 vendingMachine.coin(5);
 vendingMachine.choice(2);
@@ -15,7 +15,7 @@ vendingMachine.finish();
 vendingMachine.off();
 }
 
-int main(){
+int main() {
 setlocale(LC_ALL, "Rus");
 Automata automata;
 Work1(automata);
