@@ -8,7 +8,7 @@ class AutomataTest : public testing::Test{
 Automata vendingMachine;
 };
 
-TEST(AutomataTest, TurnOn){
+TEST(AutomataTest, TurnOn) {
 Automata vendingMachine;
 vendingMachine.on();
 EXPECT_EQ(Wait, vendingMachine.GetState());
