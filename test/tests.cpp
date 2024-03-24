@@ -75,7 +75,7 @@ TEST(AutomataTest, CookingCancel) {
 	vendingMachine.choice(2);
 	vendingMachine.cook(2);
 	vendingMachine.cancel();
-	EXPECT_EQ(Wait, vendingMachine.GetState());
+	EXPECT_EQ(Cook, vendingMachine.GetState());
 }
 
 TEST(AutomataTest, CookingComplete) {
@@ -104,6 +104,7 @@ TEST(AutomataTest, OnToOffOperation) {
 	vendingMachine.choice(2);
 	vendingMachine.cancel();
 	vendingMachine.coin(20);
+	vendingMachine.choice(2);
 	vendingMachine.check(2);
 	vendingMachine.cook(2);
 	vendingMachine.finish();
