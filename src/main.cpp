@@ -1,3 +1,5 @@
+// Copyright 2024 Anna Chernyadeva
+
 #include <iostream>
 #include "Automata.h"
 
