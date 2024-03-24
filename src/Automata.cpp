@@ -49,31 +49,34 @@ std::cout << "Внесите деньги и выберите напиток." <
 void Automata::check(int num) {
 if (state == Check) {
 if (prices[num-1] <= cash) { state = Check;
-std::cout << "Все деньги успешно внесены." << std::endl; 
-} else
-{
+std::cout << "Все деньги успешно внесены." << std::endl;
+} else {
 std::cout << "Недостаточно денег на счете, внесите до нужной суммы." <<
 " ( " << cash << "из" << prices[num-1] << " )"<< std::endl;
 }
-} else
+}
+else
 std::cout << "Внесите деньги и выберите напиток." << std::endl;
 }
 void Automata::cancel() {
 if (state == Accept || state ==Check) {state = Wait;
 std::cout << "Операция прервана." << std::endl;
-} else
+}
+else
 std::cout << "Дождитесь завершения работы автомата." << std::endl;
 }
 void Automata::cook(int num) {
 if (state == Check && cash >= prices[num-1]) { state = Cook;
 std::cout << "Приготовление напитка..." << menu[num-1]
 << std::endl; cash -= prices[num-1];
-} else
+}
+else
 std::cout << "Внесите деньги и выберите напиток." << std::endl;
 }
 void Automata::finish() {
 if (state == Cook) { state = Wait;
 std::cout << "Напиток готов. Приятного аппетита." << std::endl;
-} else
+}
+else
 std::cout << "Дождитесь завершения работы автомата." << std::endl;
 }
