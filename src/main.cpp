@@ -1,36 +1,23 @@
-﻿#include <iostream>
+// Copyright 2022 GHA Test Team
+
+#include <iostream>
 #include "Automata.h"
 
-void Work1(Automata automata)
-{
-	automata.on();
-
-	automata.GetMenu();
-
-	automata.coin(5);
-
-	automata.choice(2);
-	automata.check(2);
-
-	automata.cancel();
-
-	automata.coin(5);
-	automata.coin(5);
-
-	automata.choice(2);
-	automata.check(2);
-
-	automata.cook(2);
-
-	automata.finish();
-
-	automata.off();
+void Work1(Automata vendingMachine){
+vendingMachine.on();
+vendingMachine.coin(5);
+vendingMachine.choice(2);
+vendingMachine.cancel();
+vendingMachine.coin(20);
+vendingMachine.check(2);
+vendingMachine.cook(2);
+vendingMachine.finish();
+vendingMachine.off();
 }
 
-int main()
-{
-	setlocale(LC_ALL, "Rus");
-	Automata automata;
-	Work1(automata);
-	return 0;
+int main(){
+setlocale(LC_ALL, "Rus");
+Automata automata;
+Work1(automata);
+return 0;
 }
