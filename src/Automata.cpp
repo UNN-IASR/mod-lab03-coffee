@@ -1,71 +1,56 @@
+// Copyright 2022 GHA Test Team
+
 #include "Automata.h"
 
-	 Automata::Automata()
-	{
-		 cash = 0;
-		 menu = new string[3]{"Чай", "Кофе","Молоко"};
-		 prices = new unsigned int[3]{5,15,8};
-		 state = Off;
-	}
+Automata::Automata(){
+cash = 0;
+menu = new std::string[3]{"Р§Р°Р№", "РљРѕС„Рµ","РњРѕР»РѕРєРѕ"};
+prices = new unsigned int[3]{5,15,8};
+state = Off;
+}
 
-	 void Automata::on() //1
-	 {
-		 if (state == Off) { state = Wait; cout << "Автомат включился." << endl; }
-		 else cout << "Автомат уже включён." << endl;
+void Automata::on() {
+if (state == Off) { state = Wait; std::cout << "РђРІС‚РѕРјР°С‚ РІРєР»СЋС‡РёР»СЃСЏ." << std::endl; }
+else std::cout << "РђРІС‚РѕРјР°С‚ СѓР¶Рµ РІРєР»СЋС‡С‘РЅ." << std::endl;
+}
 
-	 }
-
-	 void Automata::off()//2
-	 {
-		 if (state == Wait){ state = Off; cout << "Автомат выключился." << endl;}
-		 else if (state == Off) cout << "Автомат уже выключён." << endl;
-		 else cout << "Автомат не завершил свою работу." << endl;
-	 }
-	 void Automata::coin(unsigned int sum)//3
-	 {
-		 if (state == Wait || state == Accept) { state = Accept; cash += sum; cout << "Деньги внесены: "<< sum << endl; }
-		
-		 else cout << "Дождитесь завершения работы автомата." << endl;
-	 }
-	 void Automata::GetMenu()//4
-	 {
-		 cout << " Меню:--------------------------------------- " << endl;
-		 for (int i = 0; i < 3; i++) { cout << menu[i]<<" - "<< prices[i] << endl; }
-		 cout << " ---------------------------------------V0.1- " << endl;
-	 }
-	 States Automata::GetState()//5
-	 {
-		 return state;
-	 }
-	 void Automata::choice(int num)//6
-	 {
-		 if (state == Accept) {state = Check; cout << "Выбор сделан: " << num << endl;}
-		 
-		 else cout << "Внесите деньги и выберите напиток." << endl;
-	 }
-	 void Automata::check(int num)//7
-	 {
-		 if (state == Check) 
-		 {
-			 if (prices[num-1] <= cash) { state = Check; cout << "Все деньги успешно внесены." << endl;  }
-		 
-			 else { cout << "Недостаточно денег на счете, внесите до нужной суммы." << " ( "<<cash<<"из"<<prices[num-1]<< " )"<< endl; }
-		 }
-		 else cout << "Внесите деньги и выберите напиток." << endl;
-	 }
-	 void Automata::cancel()//8
-	 {
-		 if (state == Accept || state ==Check) {state = Wait; cout << "Операция прервана." << endl;}
-		 else cout << "Дождитесь завершения работы автомата." << endl;
-	 }
-	 void Automata::cook(int num)//9
-	 {
-		 if (state == Check && cash>=prices[num-1]) { state = Cook;  cout << "Приготовление напитка..." << menu[num-1] << endl;cash -= prices[num-1];}
-		 else cout << "Внесите деньги и выберите напиток." << endl;
-	 }
-	 void Automata::finish()//10
-	 {
-		 if (state == Cook) { state = Wait;  cout << "Напиток готов. Приятного аппетита." << endl;}
-	 
-		 else cout << "Дождитесь завершения работы автомата." << endl;
-	 }
+void Automata::off(){
+if (state == Wait){ state = Off; std::cout << "РђРІС‚РѕРјР°С‚ РІС‹РєР»СЋС‡РёР»СЃСЏ." << std::endl;}
+else if (state == Off) std::cout << "РђРІС‚РѕРјР°С‚ СѓР¶Рµ РІС‹РєР»СЋС‡С‘РЅ." << std::endl;
+else std::cout << "РђРІС‚РѕРјР°С‚ РЅРµ Р·Р°РІРµСЂС€РёР» СЃРІРѕСЋ СЂР°Р±РѕС‚Сѓ." << std::endl;
+}
+void Automata::coin(unsigned int sum){
+if (state == Wait || state == Accept) { state = Accept; cash += sum; std::cout << "Р”РµРЅСЊРіРё РІРЅРµСЃРµРЅС‹: "<< sum << std::endl; }
+else std::cout << "Р”РѕР¶РґРёС‚РµСЃСЊ Р·Р°РІРµСЂС€РµРЅРёСЏ СЂР°Р±РѕС‚С‹ Р°РІС‚РѕРјР°С‚Р°." << std::endl;
+}
+void Automata::GetMenu(){
+	std::cout << " РњРµРЅСЋ:--------------------------------------- " << std::endl;
+for (int i = 0; i < 3; i++) { std::cout << menu[i]<<" - "<< prices[i] << std::endl; }
+std::cout << " ---------------------------------------V0.1- " << std::endl;
+}
+States Automata::GetState(){
+return state;
+}
+void Automata::choice(int num){
+if (state == Accept) {state = Check; std::cout << "Р’С‹Р±РѕСЂ СЃРґРµР»Р°РЅ: " << num << std::endl;}
+else std::cout << "Р’РЅРµСЃРёС‚Рµ РґРµРЅСЊРіРё Рё РІС‹Р±РµСЂРёС‚Рµ РЅР°РїРёС‚РѕРє." << std::endl;
+}
+void Automata::check(int num){
+if (state == Check) {
+if (prices[num-1] <= cash) { state = Check; std::cout << "Р’СЃРµ РґРµРЅСЊРіРё СѓСЃРїРµС€РЅРѕ РІРЅРµСЃРµРЅС‹." << std::endl;  }
+else { std::cout << "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі РЅР° СЃС‡РµС‚Рµ, РІРЅРµСЃРёС‚Рµ РґРѕ РЅСѓР¶РЅРѕР№ СЃСѓРјРјС‹." << " ( "<<cash<<"РёР·"<<prices[num-1]<< " )"<< std::endl; }
+}
+else std::cout << "Р’РЅРµСЃРёС‚Рµ РґРµРЅСЊРіРё Рё РІС‹Р±РµСЂРёС‚Рµ РЅР°РїРёС‚РѕРє." << std::endl;
+}
+void Automata::cancel(){
+if (state == Accept || state ==Check) {state = Wait; std::cout << "РћРїРµСЂР°С†РёСЏ РїСЂРµСЂРІР°РЅР°." << std::endl;}
+else std::cout << "Р”РѕР¶РґРёС‚РµСЃСЊ Р·Р°РІРµСЂС€РµРЅРёСЏ СЂР°Р±РѕС‚С‹ Р°РІС‚РѕРјР°С‚Р°." << std::endl;
+}
+void Automata::cook(int num){
+if (state == Check && cash>=prices[num-1]) { state = Cook;  std::cout << "РџСЂРёРіРѕС‚РѕРІР»РµРЅРёРµ РЅР°РїРёС‚РєР°..." << menu[num-1] << std::endl;cash -= prices[num-1];}
+else std::cout << "Р’РЅРµСЃРёС‚Рµ РґРµРЅСЊРіРё Рё РІС‹Р±РµСЂРёС‚Рµ РЅР°РїРёС‚РѕРє." << std::endl;
+}
+void Automata::finish(){
+if (state == Cook) { state = Wait;  std::cout << "РќР°РїРёС‚РѕРє РіРѕС‚РѕРІ. РџСЂРёСЏС‚РЅРѕРіРѕ Р°РїРїРµС‚РёС‚Р°." << std::endl;}
+else std::cout << "Р”РѕР¶РґРёС‚РµСЃСЊ Р·Р°РІРµСЂС€РµРЅРёСЏ СЂР°Р±РѕС‚С‹ Р°РІС‚РѕРјР°С‚Р°." << std::endl;
+}
