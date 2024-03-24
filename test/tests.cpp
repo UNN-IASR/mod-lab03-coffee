@@ -79,3 +79,4 @@ TEST(AutomataTest, TwoCycles) {
     CoffeeBreak.coin(0);
     CoffeeBreak.choice(2);
     EXPECT_EQ(ACCEPT, CoffeeBreak.getState());
+}
