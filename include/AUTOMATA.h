@@ -7,11 +7,11 @@
 enum states {Off, Wait, Accept, Check, Cook};
 
 class Automata {
-private:
+private: 
 	int cash;
 	std::map<std::string, int> prices;
 	states state;
-public:
+public: 
 	Automata();
 	~Automata();
 
