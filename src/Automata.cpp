@@ -1,4 +1,4 @@
-#include "Automata.h"
+#include "AUTOMATA.h"
 #include <string>
 #include <map>
 #include <iostream>
@@ -16,7 +16,7 @@ Automata::Automata() {
 Automata::~Automata() {}
 
 void Automata::on() {
-	`if (state == Off) {
+	if (state == Off) {
 		state = Wait;
 		std::cout << "Machine is on" << std::endl;
 	}
