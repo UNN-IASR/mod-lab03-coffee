@@ -1,4 +1,4 @@
-//
+//"Copyright [year] <Copyright Owner>"
 #ifndef INCLUDE_AUTOMATA_H_
 #define INCLUDE_AUTOMATA_H_
 #include <map>
@@ -8,7 +8,7 @@ enum states {Off, Wait, Accept, Check, Cook};
 
 class Automata {
  private:
-	int cash;
+    int cash;
 	std::map<std::string, int> prices;
 	states state;
  public:
