@@ -1,6 +1,5 @@
-#ifndef Automata.h
-#define Automata.h
-#include <list>
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
 #include <map>
 #include <string>
 
@@ -27,4 +26,4 @@ public:
 	void finish(std::string name);
 };
 
-#endif
+#endif  // INCLUDE_AUTOMATA_H_
