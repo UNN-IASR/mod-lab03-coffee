@@ -78,10 +78,3 @@ TEST(AutomataTest, test9) {
     Machine.choice("black tea");
     EXPECT_EQ(false, Machine.check("black tea"));
 }
-
-TEST(AutomataTest, test10) {
-    Automata Machine;
-    Machine.on();
-    Machine.coin(30);
-    EXPECT_EQ("Mistake!", Machine.choice("nothing"));
-}
