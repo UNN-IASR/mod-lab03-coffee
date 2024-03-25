@@ -1,5 +1,5 @@
 #ifndef Automata.h
-#define AUTOMATA.h
+#define Automata.h
 #include <list>
 #include <map>
 #include <string>
