@@ -63,7 +63,8 @@ void Automata::choice(std::string name) {
 }
 
 bool Automata::check(std::string name) {
-    if ((state == Check || state == Accept) && cash >= prices.find(name)->second)
+    if ((state == Check || state == Accept)
+        && cash >= prices.find(name)->second)
         return true;
     state = Accept;
     return false;
