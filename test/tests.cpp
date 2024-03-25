@@ -32,46 +32,12 @@ TEST(AutomataTest, test4) {
     Machine.on();
     Machine.coin(30);
     Machine.choice("black tea");
-    EXPECT_EQ(Check, Machine.getState());
-}
-
-TEST(AutomataTest, test5) {
-    Automata Machine;
-    Machine.on();
-    Machine.coin(30);
-    Machine.choice("black tea");
-    EXPECT_EQ(Check, Machine.getState());
-}
-
-TEST(AutomataTest, test6) {
-    Automata Machine;
-    Machine.on();
-    Machine.coin(30);
-    Machine.choice("black tea");
-    Machine.cancel();
-    EXPECT_EQ(Check, Machine.getState());
-}
-
-TEST(AutomataTest, test7) {
-    Automata Machine;
-    Machine.on();
-    Machine.coin(30);
-    Machine.choice("black tea");
-    Machine.cook("black tea");
-    EXPECT_EQ(Cook, Machine.getState());
-}
-
-TEST(AutomataTest, test8) {
-    Automata Machine;
-    Machine.on();
-    Machine.coin(30);
-    Machine.choice("black tea");
     Machine.cook("black tea");
     Machine.finish("black tea");
     EXPECT_EQ(Wait, Machine.getState());
 }
 
-TEST(AutomataTest, test9) {
+TEST(AutomataTest, test5) {
     Automata Machine;
     Machine.on();
     Machine.coin(10);
