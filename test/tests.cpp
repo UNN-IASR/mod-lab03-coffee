@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Automata.h"
+#include "AUTOMATA.h"
 
 class AutomataTest : public testing::Test {
 protected:
