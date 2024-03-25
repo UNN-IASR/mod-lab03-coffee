@@ -1,3 +1,4 @@
+//
 #ifndef INCLUDE_AUTOMATA_H_
 #define INCLUDE_AUTOMATA_H_
 #include <map>
@@ -6,14 +7,13 @@
 enum states {Off, Wait, Accept, Check, Cook};
 
 class Automata {
-private:
+ private:
 	int cash;
 	std::map<std::string, int> prices;
 	states state;
-public:
+ public:
 	Automata();
 	~Automata();
-
 	void on();
 	void off();
 	void coin(int money);
