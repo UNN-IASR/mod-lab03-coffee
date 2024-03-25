@@ -1,8 +1,7 @@
 ﻿#include <iostream>
-#include "Automata.h"
+#include "AUTOMATA.h"
 
-int main()
-{
+int main() {
     Automata Machine;
 
     Machine.on();

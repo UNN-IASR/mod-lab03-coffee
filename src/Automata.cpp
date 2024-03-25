@@ -1,18 +1,17 @@
-#include "Automata.h"
+#include "AUTOMATA.h"
 #include <string>
 #include <map>
 #include <iostream>
 
-Automata::Automata(){
+Automata::Automata() {
 	cash = 0;
 	state = Off;
-	menu = { "black coffee", "latte", "cappuccino", "black tea", "cacao"};
 	prices["black coffee"] = 30;
 	prices["latte"] = 40;
 	prices["cappuccino"] = 40;
 	prices["black tea"] = 20;
 	prices["cacao"] = 35;
-};
+}
 
 Automata::~Automata() {}
 
@@ -52,9 +51,9 @@ states Automata::getState() {
 
 void Automata::choice(std::string name) {
 	if (state == Accept) {
-		if (prices.count(name) == 0)
+		if (prices.count(name) == 0) {
 			std::cout << "Mistake!";
-		else {
+		} else {
 			state = Check;
 			if (check(name))
 				cook(name);
