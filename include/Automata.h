@@ -15,10 +15,6 @@ class Automata {
     std::vector<int> prices;
     STATES state;
 
-    void check(int);
-    void cook(int);
-    void finish();
-
  public:
     Automata();
     ~Automata();
@@ -29,6 +25,9 @@ class Automata {
     void getMenu();
     STATES getState();
     void choice(int);
+    void check(int);
+    void cook(int);
+    void finish();
     void cancel();
 };
 
