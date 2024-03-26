@@ -69,6 +69,15 @@ TEST(AutomataTest, OffMachine) {
     EXPECT_EQ(OFF, vendingMachine.getState());
 }
 
+TEST(AutomataTest, MoneyAdding) {
+    Automata vendingMachine;
+    vendingMachine.on();
+    vendingMachine.coin(20);
+    vendingMachine.coin(10);
+    vendingMachine.coin(20);
+    EXPECT_EQ(Accept, vendingMachine.GetState());
+}
+
 TEST(AutomataTest, TwoCycles) {
     Automata vendingMachine;
     vendingMachine.on();
