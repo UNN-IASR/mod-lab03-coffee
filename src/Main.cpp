@@ -5,8 +5,8 @@
 
 int main() {
 setlocale(LC_ALL, "Rus");
-Automata vendingMachine;
 
+Automata vendingMachine;
 vendingMachine.on();
 vendingMachine.coin(5);
 vendingMachine.choice(2);

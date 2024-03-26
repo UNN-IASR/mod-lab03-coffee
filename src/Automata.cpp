@@ -68,8 +68,8 @@ void Automata::check(int num) {
             state = Check;
             std::cout << "Все деньги успешно внесены." << std::endl;
         } else {
-            std::cout << "Недостаточно денег на счете, внесите до нужной суммы." <<
-            " ( " << cash << "из" << prices[num-1] << " )"<< std::endl;
+            std::cout << "Недостаточно денег на счете, внесите до нужной суммы."
+            << " ( " << cash << "из" << prices[num-1] << " )"<< std::endl;
         }
     } else {
         std::cout << "Внесите деньги и выберите напиток." << std::endl;
