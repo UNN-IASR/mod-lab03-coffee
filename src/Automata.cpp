@@ -50,7 +50,7 @@ void Automata::getMenu() {
     std::cout << " -------------------------------------------- " << std::endl;
 }
 
-States Automata::getState() {
+STATES Automata::getState() {
     return state;
 }
 

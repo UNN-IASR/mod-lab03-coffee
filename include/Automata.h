@@ -15,7 +15,7 @@ class Automata {
     std::vector<int> prices;
     STATES state;
 
-    bool check(int);
+    void check(int);
     void cook(int);
     void finish();
 
