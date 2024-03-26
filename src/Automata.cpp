@@ -1,19 +1,20 @@
 // Copyright 2024 Kokorin Alexandr
 
 #include "Automata.h"
+#include <iostream>
 
 Automata::Automata() {
     cash = 0;
     menu = {"Чай", "Кофе", "Молоко", "Какао", "Горячий шоколад"};
     prices = {5, 15, 8, 10, 12};
-    state = Off;
+    state = OFF;
 }
 
 Automata::~Automata() {}
 
 void Automata::on() {
-    if (state == Off) {
-        state = Wait;
+    if (state == OFF) {
+        state = WAIT;
         std::cout << "Автомат включился." << std::endl;
     } else {
         std::cout << "Автомат уже включён." << std::endl;
@@ -21,10 +22,10 @@ void Automata::on() {
 }
 
 void Automata::off() {
-    if (state == Wait) {
-        state = Off;
+    if (state == WAIT) {
+        state = OFF;
         std::cout << "Автомат выключился." << std::endl;
-    } else if (state == Off) {
+    } else if (state == OFF) {
         std::cout << "Автомат уже выключён." << std::endl;
     } else {
         std::cout << "Автомат не завершил свою работу." << std::endl;
@@ -32,8 +33,8 @@ void Automata::off() {
 }
 
 void Automata::coin(int sum) {
-    if (state == Wait || state == Accept) {
-        state = Accept;
+    if (state == WAIT || state == ACCEPT) {
+        state = ACCEPT;
         cash += sum;
         std::cout << "Деньги внесены: "<< sum << std::endl;
     } else {
@@ -54,8 +55,8 @@ States Automata::getState() {
 }
 
 void Automata::choice(int num) {
-    if (state == Accept) {
-        state = Check;
+    if (state == ACCEPT) {
+        state = CHECK;
         std::cout << "Выбор сделан: " << num << std::endl;
     } else {
         std::cout << "Внесите деньги и выберите напиток." << std::endl;
@@ -63,9 +64,9 @@ void Automata::choice(int num) {
 }
 
 void Automata::check(int num) {
-    if (state == Check) {
+    if (state == CHECK) {
         if (prices[num-1] <= cash) {
-            state = Check;
+            state = CHECK;
             std::cout << "Все деньги успешно внесены." << std::endl;
         } else {
             std::cout << "Недостаточно денег на счете, внесите до нужной суммы."
@@ -77,8 +78,8 @@ void Automata::check(int num) {
 }
 
 void Automata::cancel() {
-    if (state == Accept || state ==Check) {
-        state = Wait;
+    if (state == ACCEPT || state ==CHECK) {
+        state = WAIT;
         std::cout << "Операция прервана." << std::endl;
     } else {
         std::cout << "Дождитесь завершения работы автомата." << std::endl;
@@ -86,8 +87,8 @@ void Automata::cancel() {
 }
 
 void Automata::cook(int num) {
-    if (state == Check && cash >= prices[num-1]) {
-        state = Cook;
+    if (state == CHECK && cash >= prices[num-1]) {
+        state = COOK;
         std::cout << "Приготовление напитка..." << menu[num-1]
         << std::endl; cash -= prices[num-1];
     } else {
@@ -96,8 +97,8 @@ void Automata::cook(int num) {
 }
 
 void Automata::finish() {
-    if (state == Cook) {
-        state = Wait;
+    if (state == COOK) {
+        state = WAIT;
         std::cout << "Напиток готов. Приятного аппетита." << std::endl;
     } else {
         std::cout << "Дождитесь завершения работы автомата." << std::endl;
