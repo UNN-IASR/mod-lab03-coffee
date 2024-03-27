@@ -4,7 +4,8 @@
 #include "../include/Automata.h"
 
 int main() {
-    std::vector <std::string> states = { "OFF", "WAIT", "ACCEPT", "CHECK", "COOK" };
+    std::vector <std::string> states =
+    { "OFF", "WAIT", "ACCEPT", "CHECK", "COOK" };
     Automata a;
 
     a.on();
@@ -28,4 +29,4 @@ int main() {
     a.coin(100);
     a.choice(3);
     std::cout << states[a.getState()] << std::endl;
-}	
+}
