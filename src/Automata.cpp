@@ -59,7 +59,8 @@ void Automata::choice(const int value) {
         throw std::out_of_range("I don't have that much food now!");
     if (state == states::ACCEPT) {
         item = menu.at(value);
-        std::cout << "Your choice is " << item.name << " for " << item.price << "₽" << std::endl;
+        std::cout << "Your choice is " << item.name;
+        std::cout << " for " << item.price << "₽" << std::endl;
         state = states::CHECK;
     } else {
         throw std::logic_error("You can't choice anything now!");
@@ -79,7 +80,8 @@ bool Automata::check() {
 }
 void Automata::cancel() {
     if (state == states::ACCEPT || state == states::CHECK) {
-        std::cout << "Okay I'll just give you your " << cash << "₽ back" << std::endl;
+        std::cout << "Okay I'll just give you your ";
+        std::cout << cash << "₽ back" << std::endl;
         cash = 0;
         state = states::WAIT;
     } else {
@@ -106,8 +108,10 @@ void Automata::finish() {
 }
 
 void Automata::getMenu() {
-    for (const auto& [key, item] : menu) 
-        std::cout << key << ". " << item.name << " - " << item.price << std::endl;
+    for (const auto& [key, item] : menu) {
+        std::cout << key << ". " << item.name;
+        std::cout << " - " << item.price << std::endl;
+    }
 }
 int Automata::getState() {
     return state;

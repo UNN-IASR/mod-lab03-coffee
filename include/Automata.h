@@ -1,12 +1,15 @@
 // Copyright 2024 Nekkozzz
 
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
+
 #include <iostream>
 #include <map>
 #include <string>
 #include <stdexcept>
 
 class Automata {
-private:
+ private:
     enum states {
         OFF,
         WAIT,
@@ -22,8 +25,10 @@ private:
     states state;
     float cash;
     menu_item item;
-public:
+
+ public:
     Automata();
+
     void on();
     void off();
     void coin(const float value);
@@ -39,3 +44,5 @@ public:
     menu_item getChoice();
     void log(const std::string value);
 };
+
+#endif  // INCLUDE_AUTOMATA_H_
