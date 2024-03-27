@@ -93,4 +93,8 @@ TEST(no_off, test12) {
     a.coin(50);
     a.off(); //ignore
     EXPECT_EQ(ACCEPT, a.getState());
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3a521130ea7b76483caa5c44fb3eb40d4a15b706
