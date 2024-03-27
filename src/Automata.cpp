@@ -35,7 +35,8 @@ void Automata::getMenu() {
     if (state == WAIT || state == ACCEPT) {
         std::cout << "MENU:" << std::endl;
         for (int i = 0; i < menu.size(); i++) {
-            std::cout << i + 1 << ". " << menu[i] << " - " << prices[i] <<std::endl;
+            std::cout << i + 1 << ". " << menu[i]
+		    << " - " << prices[i] << std::endl;
         }
     }
 }
@@ -46,25 +47,24 @@ STATES Automata::getState() {
 
 void Automata::choice(int num) {
     if (state == ACCEPT && num >= 1 && num <= menu.size()) {
-	state = CHECK;
-	check(num);
+        state = CHECK;
+        check(num);
     }
 }
 
 void Automata::check(int num) {
     if (cash >= prices[num - 1]) {
-	cash -= prices[num - 1];
-	cook();
-    }
-    else {
-	state = ACCEPT;
+        cash -= prices[num - 1];
+        cook();
+    } else {
+        state = ACCEPT;
     }
 }
 
 void Automata::cancel() {
     if (state == ACCEPT) {
-	cash = 0;
-	state = WAIT;
+        cash = 0;
+        state = WAIT;
     }
 }
 
