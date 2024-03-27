@@ -1,7 +1,6 @@
 // Copyright 2024 Ekaterina Ryzhevskaya
 
 #include <iostream>
-#include <windows.h>
 #include "../include/Automata.h"
 
 Automata::Automata() {
@@ -35,7 +34,8 @@ void Automata::getMenu() {
     if (state == WAIT || state == ACCEPT) {
         std::cout << "MENU:" << std::endl;
         for (int i = 0; i < menu.size(); i++) {
-            std::cout << i + 1 << ". " << menu[i] << " - " << prices[i] << std::endl;
+            std::cout << i + 1 << ". " << menu[i]
+                << " - " << prices[i] << std::endl;
         }
     }
 }
@@ -69,7 +69,6 @@ void Automata::cancel() {
 
 void Automata::cook() {
     state = COOK;
-    Sleep(1000);
     finish();
 }
 
