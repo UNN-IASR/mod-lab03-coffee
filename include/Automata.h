@@ -42,8 +42,8 @@ class Automata {
     float getCurrentCash();
     MenuItem getChoice(); };
 class Logger{
-
   public:
+
     static void log(std::string data){
         std::cout << data;
     }
