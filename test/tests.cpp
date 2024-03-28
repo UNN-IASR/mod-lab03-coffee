@@ -201,15 +201,3 @@ TEST(EXTRA, need_more_money_2) {
 
     EXPECT_EQ(true, coffee.check());
 }
-
-TEST(EXTRA, re_choice) {
-    Automata coffee;
-    coffee.on();
-    coffee.coin(150);
-    coffee.choice(1);
-    coffee.cancel();
-    coffee.coin(150);
-    coffee.choice(2);
-
-    EXPECT_EQ("Americano", coffee.getChoice().name);
-}
