@@ -1,11 +1,12 @@
+
 #include <iostream>
 #include <map>
 #include <string>
 #include <stdexcept>
 
 struct MenuItem {
-    float price;
     std::string name;
+    float price;
 };
 
 class Automata {
@@ -31,7 +32,7 @@ class Automata {
     
     void coin(float value);
     
-    void choice(float value);
+    void choice(int value);
     
     bool check();
     
@@ -49,4 +50,11 @@ class Automata {
     
     MenuItem getChoice();
     
+};
+
+class Logger{
+  public:
+    static void log(std::string data){
+        std::cout<<data;
+    }
 };
