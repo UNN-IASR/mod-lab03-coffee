@@ -1,3 +1,5 @@
+// Copyright 2024 Mikhas3009
+
 Automata::Automata() {
     coffeMenuMap = {
         {1, {"Espresso", 100.0}},
@@ -18,6 +20,7 @@ void Automata::on() {
         currentState = States::WAIT;
     }
 }
+
 void Automata::off() {
     if (currentState == States::WAIT) {
         Logger::log("Automata is OFF");
@@ -26,20 +29,22 @@ void Automata::off() {
         throw std::logic_error("Automata cannot Off right now!");
     }
 }
+
 void Automata::coin(float value) {
-    if(currentState==States::WAIT){
+    if(currentState == States::WAIT){
         currentState = States::ACCEPT;
         Logger::log("Money added");
         return;
     }
-    if(currentState==States::ACCEPT){
+    if(currentState == States::ACCEPT){
         currentCash += value;
         return;
     }
   throw std::logic_error("cannot ACCEPT Money");
 }
+
 void Automata::choice(int value) {
-    if ((value<0) || (value > coffeMenuMap.size()+1))
+    if ((value < 0) || (value > coffeMenuMap.size() +1 ))
         throw std::out_of_range("Out of range of menu");
     if (currentState == States::ACCEPT) {
         item = coffeMenuMap.at(value);
@@ -51,6 +56,7 @@ void Automata::choice(int value) {
         throw std::logic_error("You can't choice right now!");
     }
 }
+
 bool Automata::check() {
     if (currentState == States::CHECK) {
         if (item.price > currentCash) {
@@ -64,6 +70,7 @@ bool Automata::check() {
         throw std::logic_error("No need to check");
     }
 }
+
 void Automata::cancel() {
     if (currentState == States::ACCEPT || currentState == States::CHECK) {
         std::cout << "handing over money";
@@ -74,6 +81,7 @@ void Automata::cancel() {
         throw std::logic_error("nothing to cancel");
     }
 }
+
 void Automata::cook() {
     if (currentState == States::CHECK) {
         if (check()) {
@@ -88,6 +96,7 @@ void Automata::cook() {
         throw std::logic_error("It's nothing to cook now!");
     }
 }
+
 void Automata::finish() {
     if (currentState == States::COOK) {
         Logger::log("Order done!");
@@ -102,9 +111,11 @@ void Automata::getMenu() {
         std::cout << "ID: " << menuItem.first << ", Name: " << menuItem.second.name << ", Price: $" << menuItem.second.price << std::endl;
     }
 }
+
 int Automata::getAutomataState() {
     return currentState;
 }
+
 float Automata::getCurrentCash() {
     return currentCash;
 }
