@@ -1,5 +1,7 @@
 // Copyright 2024 Mikhas3009
 
+#include "../include/Automata.h"
+
 Automata::Automata() {
     coffeMenuMap = {
         {1, {"Espresso", 100.0}},
@@ -31,16 +33,16 @@ void Automata::off() {
 }
 
 void Automata::coin(float value) {
-    if(currentState == States::WAIT) {
+    if (currentState == States::WAIT) {
         currentState = States::ACCEPT;
         Logger::log("Money added");
         return;
     }
-    if(currentState == States::ACCEPT) {
+    if (currentState == States::ACCEPT) {
         currentCash += value;
         return;
     }
-  throw std::logic_error("cannot ACCEPT Money");
+    throw std::logic_error("cannot ACCEPT Money");
 }
 
 void Automata::choice(int value) {
@@ -108,7 +110,8 @@ void Automata::finish() {
 
 void Automata::getMenu() {
     for (const auto& menuItem : coffeMenuMap) {
-        std::cout << "ID: " << menuItem.first << ", Name: " << menuItem.second.name;
+        std::cout << "ID: " << menuItem.first << ", Name: ";
+        std::cout << menuItem.second.name;
         std::cout << ", Price: $" << menuItem.second.price << std::endl;
     }
 }

@@ -20,7 +20,9 @@ class Automata {
         WAIT = 2,
         ACCEPT = 3,
         CHECK = 4,
-        COOK = 5 };
+        COOK = 5 
+    };
+    
     std::map<int, MenuItem> coffeMenuMap;
     States currentState;
     float currentCash;
@@ -40,12 +42,14 @@ class Automata {
     void getMenu();
     int getAutomataState();
     float getCurrentCash();
-    MenuItem getChoice(); };
-class Logger{
+    MenuItem getChoice(); 
+};
 
-  public:
+class Logger{
+ public:
     static void log(std::string data){
         std::cout << data;
     }
 };
+
 #endif // INCLUDE_AUTOMATA_H_
