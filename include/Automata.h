@@ -25,6 +25,7 @@ class Automata {
     States state;
     int cash;
     menuItem item;
+
  public:
     Automata();
 
@@ -43,4 +44,4 @@ class Automata {
     menuItem getChoice();
 };
 
-#endif  // INCLUDE_AUTOMATA_H
+#endif // INCLUDE_AUTOMATA_H_
