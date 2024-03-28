@@ -31,12 +31,12 @@ void Automata::off() {
 }
 
 void Automata::coin(float value) {
-    if(currentState == States::WAIT){
+    if(currentState == States::WAIT) {
         currentState = States::ACCEPT;
         Logger::log("Money added");
         return;
     }
-    if(currentState == States::ACCEPT){
+    if(currentState == States::ACCEPT) {
         currentCash += value;
         return;
     }
@@ -44,7 +44,7 @@ void Automata::coin(float value) {
 }
 
 void Automata::choice(int value) {
-    if ((value < 0) || (value > coffeMenuMap.size() +1 ))
+    if ((value < 0) || (value > coffeMenuMap.size() + 1))
         throw std::out_of_range("Out of range of menu");
     if (currentState == States::ACCEPT) {
         item = coffeMenuMap.at(value);
@@ -108,7 +108,8 @@ void Automata::finish() {
 
 void Automata::getMenu() {
     for (const auto& menuItem : coffeMenuMap) {
-        std::cout << "ID: " << menuItem.first << ", Name: " << menuItem.second.name << ", Price: $" << menuItem.second.price << std::endl;
+        std::cout << "ID: " << menuItem.first << ", Name: " << menuItem.second.name;
+        std::cout << ", Price: $" << menuItem.second.price << std::endl;
     }
 }
 
@@ -119,6 +120,7 @@ int Automata::getAutomataState() {
 float Automata::getCurrentCash() {
     return currentCash;
 }
+
 MenuItem Automata::getChoice() {
     return item;
 }
