@@ -45,7 +45,7 @@ TEST(BASE, cook) {
     coffee.choice(1);
     coffee.check();
     coffee.cook();
-    EXPECT_EQ(4, coffee.getAutomataState());
+    EXPECT_EQ(5, coffee.getAutomataState());
 }
 
 TEST(BASE, finish) {
