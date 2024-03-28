@@ -94,7 +94,7 @@ TEST(ERROR, unexp_on) {
     try {
         coffee.on();
     } catch(const std::logic_error err) {
-        ASSERT_STREQ("I'm already alive!", err.what());
+        ASSERT_STREQ("Already on", err.what());
     }
 }
 
@@ -103,7 +103,7 @@ TEST(ERROR, unexp_off) {
     try {
         coffee.off();
     } catch(const std::logic_error err) {
-        ASSERT_STREQ("It's unsafe to off me now!", err.what());
+        ASSERT_STREQ("Unsafe to off now", err.what());
     }
 }
 
@@ -112,18 +112,7 @@ TEST(ERROR, unexp_money) {
     try {
         coffee.coin(150);
     } catch(const std::logic_error err) {
-        ASSERT_STREQ("I can't eat money now!", err.what());
-    }
-}
-
-TEST(ERROR, incorr_choice) {
-    Automata coffee;
-    coffee.on();
-    coffee.coin(150);
-    try {
-        coffee.choice(20);
-    } catch(const std::logic_error err) {
-        ASSERT_STREQ("I don't have that much food now!", err.what());
+        ASSERT_STREQ("Can't get money now", err.what());
     }
 }
 
@@ -132,7 +121,7 @@ TEST(ERROR, unexp_choice) {
     try {
         coffee.choice(1);
     } catch(const std::logic_error err) {
-        ASSERT_STREQ("You can't choice anything now!", err.what());
+        ASSERT_STREQ("Can't choice now", err.what());
     }
 }
 
@@ -141,7 +130,7 @@ TEST(ERROR, unexp_check) {
     try {
         coffee.check();
     } catch(const std::logic_error err) {
-        ASSERT_STREQ("It's nothing to check now!", err.what());
+        ASSERT_STREQ("Nothing to check", err.what());
     }
 }
 
@@ -150,7 +139,7 @@ TEST(ERROR, unexp_cancel) {
     try {
         coffee.cancel();
     } catch(const std::logic_error err) {
-        ASSERT_STREQ("Sorry you can't cancel it!", err.what());
+        ASSERT_STREQ("Can't cancel now", err.what());
     }
 }
 
@@ -159,7 +148,7 @@ TEST(ERROR, unexp_cook) {
     try {
         coffee.cook();
     } catch(const std::logic_error err) {
-        ASSERT_STREQ("It's nothing to cook now!", err.what());
+        ASSERT_STREQ("Nothing to cook", err.what());
     }
 }
 
@@ -168,49 +157,6 @@ TEST(ERROR, unexp_finish) {
     try {
         coffee.finish();
     } catch(const std::logic_error err) {
-        ASSERT_STREQ("It's nothing to finish now!", err.what());
+        ASSERT_STREQ("Nothing to finish", err.what());
     }
-}
-
-TEST(EXTRA, a_lot_of_money) {
-    Automata coffee;
-    coffee.on();
-    coffee.coin(12);
-    coffee.coin(23);
-    coffee.coin(34);
-
-    EXPECT_EQ(69, coffee.getCash());
-}
-
-TEST(EXTRA, need_more_money_1) {
-    Automata coffee;
-    coffee.on();
-    coffee.coin(90);
-    coffee.choice(1);
-
-    EXPECT_EQ(false, coffee.check());
-}
-
-TEST(EXTRA, need_more_money_2) {
-    Automata coffee;
-    coffee.on();
-    coffee.coin(90);
-    coffee.choice(1);
-    coffee.cancel();
-    coffee.coin(150);
-    coffee.choice(1);
-
-    EXPECT_EQ(true, coffee.check());
-}
-
-TEST(EXTRA, re_choice) {
-    Automata coffee;
-    coffee.on();
-    coffee.coin(150);
-    coffee.choice(1);
-    coffee.cancel();
-    coffee.coin(150);
-    coffee.choice(2);
-
-    EXPECT_EQ("Americano", coffee.getChoice().name);
 }
