@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 #include "Automata.h"
 
+
 TEST(BASE, sleep) {
     Automata coffee;
 
@@ -30,7 +31,7 @@ TEST(BASE, choice) {
     coffee.coin(150);
     coffee.choice(1);
 
-    EXPECT_EQ(3, coffee.getState());
+    EXPECT_EQ(4, coffee.getState());
 }
 
 TEST(BASE, check) {
@@ -40,7 +41,7 @@ TEST(BASE, check) {
     coffee.choice(1);
     coffee.check();
 
-    EXPECT_EQ(3, coffee.getState());
+    EXPECT_EQ(4, coffee.getState());
 }
 
 TEST(BASE, cook) {
@@ -51,7 +52,7 @@ TEST(BASE, cook) {
     coffee.check();
     coffee.cook();
 
-    EXPECT_EQ(4, coffee.getState());
+    EXPECT_EQ(3, coffee.getState());
 }
 
 TEST(BASE, finish) {
@@ -200,4 +201,16 @@ TEST(EXTRA, need_more_money_2) {
     coffee.choice(1);
 
     EXPECT_EQ(true, coffee.check());
+}
+
+TEST(EXTRA, re_choice) {
+    Automata coffee;
+    coffee.on();
+    coffee.coin(150);
+    coffee.choice(1);
+    coffee.cancel();
+    coffee.coin(150);
+    coffee.choice(2);
+
+    EXPECT_EQ("Americano", coffee.getChoice().name);
 }
