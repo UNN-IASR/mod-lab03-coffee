@@ -26,6 +26,7 @@ class Automata {
     States currentState;
     float currentCash;
     MenuItem item;
+
  public:
     Automata();
     void on();
@@ -36,12 +37,12 @@ class Automata {
     void cancel();
     void cook();
     void finish();
+
     void getMenu();
     int getAutomataState();
     float getCurrentCash();
     MenuItem getChoice(); 
 };
-
 class Logger{
 
   public:
@@ -49,4 +50,4 @@ class Logger{
         std::cout << data;
     }
 };
-#endif
+#endif // INCLUDE_AUTOMATA_H_
