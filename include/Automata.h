@@ -46,7 +46,7 @@ class Logger{
   public:
 
     static void log(std::string data){
-        std::cout<<data;
+        std::cout << data;
     }
 };
 #endif
