@@ -70,6 +70,8 @@ bool Automata::check() {
     if (state == states::CHECK) {
         if (item.price > cash) {
             log("You need to go back and give me more money");
+            std::cout << "(just " << item.price - cash;
+            std::cout << "₽ more)" << std::endl;
         } else {
             log("I'm ready to cook now");
         }
@@ -92,6 +94,10 @@ void Automata::cook() {
     if (state == states::CHECK) {
         if (check()) {
             log("So I'm cooking now");
+            cash -= item.price;
+            std::cout << "(i also give your ";
+            std::cout << cash << "₽ back)" << std::endl;
+            cash = 0;
             state = states::COOK;
         }
     } else {
