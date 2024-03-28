@@ -44,6 +44,7 @@ class Automata {
 
 class Logger{
   public:
+
     static void log(std::string data){
         std::cout<<data;
     }
