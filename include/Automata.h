@@ -43,8 +43,8 @@ class Automata {
 };
 
 class Logger{
-  public:
 
+  public:
     static void log(std::string data){
         std::cout << data;
     }
