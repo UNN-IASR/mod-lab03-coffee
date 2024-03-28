@@ -35,11 +35,10 @@ void Automata::off() {
 void Automata::coin(float value) {
     if (currentState == States::WAIT) {
         currentState = States::ACCEPT;
-        Logger::log("Money added");
-        return;
     }
     if (currentState == States::ACCEPT) {
         currentCash += value;
+        Logger::log("Money added");
         return;
     }
     throw std::logic_error("cannot ACCEPT Money");

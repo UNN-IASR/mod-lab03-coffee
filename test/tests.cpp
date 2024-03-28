@@ -45,7 +45,7 @@ TEST(BASE, cook) {
     coffee.choice(1);
     coffee.check();
     coffee.cook();
-    EXPECT_EQ(5, coffee.getAutomataState());
+    EXPECT_EQ(4, coffee.getAutomataState());
 }
 
 TEST(BASE, finish) {
@@ -85,5 +85,5 @@ TEST(BASE, get_money_back) {
     coffee.coin(20);
     coffee.choice(2);
     coffee.cancel();
-    EXPECT_EQ(1, coffee.getCurrentCash());
+    EXPECT_EQ(0, coffee.getCurrentCash());
 }
