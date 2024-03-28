@@ -1,3 +1,5 @@
+// Copyright 2022 Yuriy Korshunov
+
 #include "../include/Automata.h"
 
 Automata::Automata() {

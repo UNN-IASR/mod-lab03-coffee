@@ -1,4 +1,4 @@
-// Copyright 2022 GHA Test Team
+// Copyright 2022 Yuriy Korshunov
 
 #include <gtest/gtest.h>
 #include "Automata.h"
