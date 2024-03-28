@@ -1,3 +1,7 @@
+// Copyright 2024 Mikhas3009
+
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
 
 #include <iostream>
 #include <map>
@@ -22,34 +26,20 @@ class Automata {
     States currentState;
     float currentCash;
     MenuItem item;
-
  public:
     Automata();
-
     void on();
-    
     void off();
-    
     void coin(float value);
-    
     void choice(int value);
-    
     bool check();
-    
     void cancel();
-    
     void cook();
-    
     void finish();
-    
     void getMenu();
-    
     int getAutomataState();
-    
     float getCurrentCash();
-    
-    MenuItem getChoice();
-    
+    MenuItem getChoice(); 
 };
 
 class Logger{
@@ -58,3 +48,4 @@ class Logger{
         std::cout<<data;
     }
 };
+#endif
