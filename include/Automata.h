@@ -20,9 +20,9 @@ class Automata {
         WAIT = 2,
         ACCEPT = 3,
         CHECK = 4,
-        COOK = 5 
+        COOK = 5
     };
-    
+
     std::map<int, MenuItem> coffeMenuMap;
     States currentState;
     float currentCash;
@@ -42,7 +42,7 @@ class Automata {
     void getMenu();
     int getAutomataState();
     float getCurrentCash();
-    MenuItem getChoice(); 
+    MenuItem getChoice();
 };
 
 class Logger{
