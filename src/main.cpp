@@ -1,6 +1,7 @@
 // Copyright 2020 GHA Test Team
 
 #include "../include/Automata.h"
+
 #include <iostream>
 
 int main() {
