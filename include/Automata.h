@@ -1,4 +1,4 @@
-// Copyright 2024 <Student Name>
+// Copyright 2020 GHA Test Team
 
 #ifndef INCLUDE_AUTOMATA_H_
 #define INCLUDE_AUTOMATA_H_
