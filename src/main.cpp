@@ -1,6 +1,6 @@
 // Copyright 2024 <Student Name>
 
-#include "include/Automata.h"
+#include "../include/Automata.h"
 #include <iostream>
 
 int main() {
