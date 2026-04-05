@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-#include "include/Automata.h"
+#include "../include/Automata.h"
 
 TEST(AutomataTest, InitialState) {
   Automata a;
