@@ -1,8 +1,8 @@
 // Copyright 2020 GHA Test Team
 
-#include "../include/Automata.h"
-
 #include <iostream>
+
+#include "../include/Automata.h"
 
 int main() {
   setlocale(LC_ALL, "Russian");
