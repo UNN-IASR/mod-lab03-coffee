@@ -12,13 +12,13 @@ Automata::Automata() {
   state = OFF;
   chosenDrink = -1;
   menuSize = 5;
-  menu[0] = "Кофе";
+  menu[0] = "Латте";
   prices[0] = 50;
   menu[1] = "Чай";
   prices[1] = 30;
   menu[2] = "Какао";
   prices[2] = 45;
-  menu[3] = "Молоко";
+  menu[3] = "Капучино";
   prices[3] = 40;
   menu[4] = "Горячий шоколад";
   prices[4] = 60;
@@ -51,13 +51,13 @@ Automata::Automata(const std::string& filename) {
   menuSize = 0;
   if (!loadMenuFromFile(filename)) {
     menuSize = 5;
-    menu[0] = "Кофе";
+    menu[0] = "Латте";
     prices[0] = 50;
     menu[1] = "Чай";
     prices[1] = 30;
     menu[2] = "Какао";
     prices[2] = 45;
-    menu[3] = "Молоко";
+    menu[3] = "Капучино";
     prices[3] = 40;
     menu[4] = "Горячий шоколад";
     prices[4] = 60;
