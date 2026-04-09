@@ -1,7 +1,6 @@
-// Copyright 2022 GHA Test Team
+// Copyright 2026
 
 #include <gtest/gtest.h>
-#include "Automata.h"
 #include "Automata.h"
 #include <cassert>
 

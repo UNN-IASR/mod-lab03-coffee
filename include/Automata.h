@@ -1,5 +1,6 @@
-#ifndef AUTOMATA_H
-#define AUTOMATA_H
+// Copyright 2026
+#ifndef INCLUDE_AUTOMATA_H__
+#define INCLUDE_AUTOMATA_H__
 
 #include <string>
 #include <vector>
