@@ -3,29 +3,54 @@
 #include <iostream>
 
 int main() {
-    Automata coffeeMachine;
+    Automata machine;
 
-    std::cout << "=== Coffee Machine Simulation ===\n";
+    std::cout << "=== Демонстрация работы автомата ===\n\n";
 
-    coffeeMachine.on();
-    std::cout << "Machine is ON. State: " << static_cast<int>(coffeeMachine.getState()) << "\n";
+    machine.on();
+    std::cout << machine.getState() << std::endl;
 
-    std::cout << "\nMenu:\n" << coffeeMachine.getMenu();
+    std::cout << machine.getMenu();
 
-    coffeeMachine.coin(100.0);
-    std::cout << "\nInserted 100 rub. Cash: " << coffeeMachine.getCash() << " rub\n";
+    machine.coin(20);
+    std::cout << "Состояние: " << machine.getState() << std::endl;
 
-    coffeeMachine.choice(2);
-    std::cout << "Selected coffee. State: " << static_cast<int>(coffeeMachine.getState()) << "\n";
+    machine.coin(30);
+    std::cout << "Баланс: " << machine.getCash() << " руб.\n";
 
-    coffeeMachine.cook();
-    std::cout << "Cooking...\n";
+    machine.choice(1);
+    std::cout << "Состояние: " << machine.getState() << std::endl;
 
-    coffeeMachine.finish();
-    std::cout << "Coffee ready! Cash left: " << coffeeMachine.getCash() << " rub\n";
+    if (machine.check()) {
+        machine.cook();
+        machine.finish();
+    } else {
+        std::cout << "Ошибка: недостаточно денег. Отмена.\n";
+        machine.cancel();
+    }
 
-    coffeeMachine.off();
-    std::cout << "Machine is OFF. State: " << static_cast<int>(coffeeMachine.getState()) << "\n";
+    std::cout << "\n--- Второй сеанс (недостаточно денег) ---\n";
+    machine.coin(10);
+    machine.choice(0);
+    if (!machine.check()) {
+        std::cout << "Не хватает, добавляем ещё монет...\n";
+        machine.coin(30);
+        machine.choice(0);
+        if (machine.check()) {
+            machine.cook();
+            machine.finish();
+        }
+    }
+
+    std::cout << "\n--- Отмена сеанса ---\n";
+    machine.coin(100);
+    machine.choice(2);
+    machine.cancel();
+    std::cout << "Состояние: " << machine.getState() << std::endl;
+
+    std::cout << "\n--- Выключение автомата ---\n";
+    machine.off();
+    std::cout << machine.getState() << std::endl;
 
     return 0;
 }

@@ -6,38 +6,37 @@
 #include <vector>
 
 enum class STATES {
-    OFF,      
-    ON,        
-    WAIT,       
-    ACCEPT,     
-    CHECK,      
-    COOK,       
-    CANCEL,     
-    FINISH     
+    OFF,
+    WAIT,
+    ACCEPT,
+    CHECK,
+    COOK
 };
 
 class Automata {
 private:
-    double cash;                    
-    std::vector<std::string> menu; 
-    std::vector<double> prices;    
-    STATES state;                 
+    int cash;
+    std::vector<std::string> menu;
+    std::vector<int> prices;
+    STATES state;
+    int selectedItem;
 
 public:
     Automata();
 
-    void on();                      
-    void off();                     
-    void coin(double amount);       
-    std::string getMenu();          
-    STATES getState();             
-    void choice(int drinkNumber);   
-    bool check(int drinkNumber);    
-    void cancel();                  
-    void cook();                    
-    void finish();                  
+    void on();
+    void off();
+    void coin(int amount);
+    std::string getMenu() const;
+    std::string getState() const;
+    void choice(int index);
+    bool check();
+    void cancel();
+    void cook();
+    void finish();
 
-    double getCash() const;         
+    int getCash() const { return cash; }
+    int getSelectedItem() const { return selectedItem; }
 };
 
 #endif
