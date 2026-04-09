@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-enum class STATES {
+enum class States {
     OFF,
     WAIT,
     ACCEPT,
@@ -14,29 +14,28 @@ enum class STATES {
 };
 
 class Automata {
-private:
+ private:
     int cash;
     std::vector<std::string> menu;
     std::vector<int> prices;
-    STATES state;
-    int selectedItem;
+    States state;
+    int selected_item;
 
-public:
+ public:
     Automata();
-
     void on();
     void off();
     void coin(int amount);
-    std::string getMenu() const;
-    std::string getState() const;
-    void choice(int index);
+    std::string getMenu() const;          // изменено: теперь возвращает строку
+    std::string getState() const;         // изменено: возвращает строку
+    void choice(int index);               // изменено: void вместо bool
     bool check();
     void cancel();
     void cook();
     void finish();
 
     int getCash() const { return cash; }
-    int getSelectedItem() const { return selectedItem; }
+    int getSelectedItem() const { return selected_item; }
 };
 
-#endif
+#endif  // INCLUDE_AUTOMATA_H__

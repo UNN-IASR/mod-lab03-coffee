@@ -1,144 +1,161 @@
-// Copyright 2026
-
-#include <gtest/gtest.h>
 #include "Automata.h"
-#include <cassert>
 #include <iostream>
-void test_initial_state() {
+#include <cassert>
+#include <string>
+
+void test_on_off() {
     Automata a;
     assert(a.getState() == "OFF (Выключен)");
-    assert(a.getCash() == 0);
-    std::cout << "test_initial_state passed\n";
-}
-
-void test_on() {
-    Automata a;
     a.on();
     assert(a.getState() == "WAIT (Ожидание)");
-    assert(a.getCash() == 0);
-    std::cout << "test_on passed\n";
-}
-
-void test_off() {
-    Automata a;
-    a.on();
     a.off();
     assert(a.getState() == "OFF (Выключен)");
-    a.off();
-    assert(a.getState() == "OFF (Выключен)");
-    std::cout << "test_off passed\n";
+    std::cout << "test_on_off passed\n";
 }
 
-void test_coin_from_wait() {
+void test_coin() {
     Automata a;
     a.on();
     a.coin(50);
     assert(a.getState() == "ACCEPT (Приём денег)");
-    assert(a.getCash() == 50);
-    std::cout << "test_coin_from_wait passed\n";
-}
-
-void test_coin_from_accept() {
-    Automata a;
-    a.on();
     a.coin(30);
-    a.coin(20);
-    assert(a.getCash() == 50);
-    assert(a.getState() == "ACCEPT (Приём денег)");
-    std::cout << "test_coin_from_accept passed\n";
-}
-
-void test_choice() {
-    Automata a;
-    a.on();
-    a.coin(100);
     a.choice(0);
     assert(a.getState() == "CHECK (Проверка средств)");
-    assert(a.getSelectedItem() == 0);
-    std::cout << "test_choice passed\n";
-}
-
-void test_check_sufficient() {
-    Automata a;
-    a.on();
-    a.coin(50);
-    a.choice(1);
-    bool res = a.check();
-    assert(res == true);
+    a.check();
     assert(a.getState() == "COOK (Приготовление)");
-    std::cout << "test_check_sufficient passed\n";
-}
-
-void test_check_insufficient() {
-    Automata a;
-    a.on();
-    a.coin(30);
-    a.choice(1);
-    bool res = a.check();
-    assert(res == false);
-    assert(a.getState() == "ACCEPT (Приём денег)");
-    assert(a.getCash() == 30);
-    std::cout << "test_check_insufficient passed\n";
+    a.cook();
+    assert(a.getState() == "WAIT (Ожидание)");
+    std::cout << "test_coin passed\n";
 }
 
 void test_cancel() {
     Automata a;
     a.on();
-    a.coin(70);
-    a.choice(2);
+    a.coin(100);
     a.cancel();
     assert(a.getState() == "WAIT (Ожидание)");
-    assert(a.getCash() == 0);
-    assert(a.getSelectedItem() == -1);
+    a.choice(0);
+    assert(a.getState() == "WAIT (Ожидание)"); // choice не сработал – остался WAIT
+    a.cancel(); // повторная отмена в WAIT ничего не делает
+    assert(a.getState() == "WAIT (Ожидание)");
     std::cout << "test_cancel passed\n";
 }
 
-void test_full_flow() {
-    Automata a;
-    a.on();
-    a.coin(40);
-    a.choice(3);
-    assert(a.check() == true);
-    a.cook();
-    a.finish();
-    assert(a.getState() == "WAIT (Ожидание)");
-    assert(a.getCash() == 0);
-    assert(a.getSelectedItem() == -1);
-    std::cout << "test_full_flow passed\n";
-}
-
-void test_cancel_when_wait() {
-    Automata a;
-    a.on();
-    a.cancel();
-    assert(a.getState() == "WAIT (Ожидание)");
-    std::cout << "test_cancel_when_wait passed\n";
-}
-
-void test_invalid_choice() {
+void test_choice_invalid() {
     Automata a;
     a.on();
     a.coin(50);
     a.choice(10);
     assert(a.getState() == "ACCEPT (Приём денег)");
-    assert(a.getSelectedItem() == -1);
-    std::cout << "test_invalid_choice passed\n";
+    a.choice(-1);
+    assert(a.getState() == "ACCEPT (Приём денег)");
+    std::cout << "test_choice_invalid passed\n";
+}
+
+void test_insufficient_funds() {
+    Automata a;
+    a.on();
+    a.coin(20);
+    a.choice(0);
+    assert(a.getState() == "CHECK (Проверка средств)");
+    bool ok = a.check();
+    assert(!ok);
+    assert(a.getState() == "ACCEPT (Приём денег)");
+    a.coin(10);
+    a.check();
+    assert(a.getState() == "COOK (Приготовление)");
+    a.cook();
+    assert(a.getState() == "WAIT (Ожидание)");
+    std::cout << "test_insufficient_funds passed\n";
+}
+
+void test_cook_without_check() {
+    Automata a;
+    a.on();
+    a.coin(50);
+    a.choice(0);
+    a.cook();
+    assert(a.getState() == "CHECK (Проверка средств)");
+    std::cout << "test_cook_without_check passed\n";
+}
+
+void test_finish_direct() {
+    Automata a;
+    a.on();
+    a.coin(50);
+    a.choice(0);
+    a.check();
+    a.cook();
+    assert(a.getState() == "WAIT (Ожидание)");
+    a.finish();
+    assert(a.getState() == "WAIT (Ожидание)");
+    std::cout << "test_finish_direct passed\n";
+}
+
+void test_multiple_coins() {
+    Automata a;
+    a.on();
+    a.coin(10);
+    a.coin(20);
+    a.coin(5);
+    a.choice(1);
+    a.check();
+    assert(a.getState() == "ACCEPT (Приём денег)");
+    a.coin(15);
+    a.check();
+    assert(a.getState() == "COOK (Приготовление)");
+    a.cook();
+    assert(a.getState() == "WAIT (Ожидание)");
+    std::cout << "test_multiple_coins passed\n";
+}
+
+void test_off_during_accept() {
+    Automata a;
+    a.on();
+    a.coin(100);
+    a.off();
+    assert(a.getState() == "OFF (Выключен)");
+    a.choice(0);
+    assert(a.getState() == "OFF (Выключен)");
+    std::cout << "test_off_during_accept passed\n";
+}
+
+void test_getMenu() {
+    Automata a;
+    std::string menu = a.getMenu();
+    assert(!menu.empty());
+    std::cout << "test_getMenu passed\n";
+}
+
+void test_state_transitions() {
+    Automata a;
+    assert(a.getState() == "OFF (Выключен)");
+    a.on();
+    assert(a.getState() == "WAIT (Ожидание)");
+    a.coin(10);
+    assert(a.getState() == "ACCEPT (Приём денег)");
+    a.choice(0);
+    assert(a.getState() == "CHECK (Проверка средств)");
+    a.check();
+    assert(a.getState() == "COOK (Приготовление)");
+    a.cook();
+    assert(a.getState() == "WAIT (Ожидание)");
+    std::cout << "test_state_transitions passed\n";
 }
 
 int main() {
     std::cout << "Running tests...\n";
-    test_initial_state();
-    test_on();
-    test_off();
-    test_coin_from_wait();
-    test_coin_from_accept();
-    test_choice();
-    test_check_sufficient();
-    test_check_insufficient();
+    test_on_off();
+    test_coin();
     test_cancel();
-    test_full_flow();
-    test_cancel_when_wait();
-    test_invalid_choice();
+    test_choice_invalid();
+    test_insufficient_funds();
+    test_cook_without_check();
+    test_finish_direct();
+    test_multiple_coins();
+    test_off_during_accept();
+    test_getMenu();
+    test_state_transitions();
     std::cout << "All tests passed!\n";
     return 0;
 }

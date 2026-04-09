@@ -1,46 +1,47 @@
 // Copyright 2026
 #include "Automata.h"
 #include <iostream>
-#include <sstream>
 #include <thread>
 #include <chrono>
-Automata::Automata() : cash(0), state(STATES::OFF), selectedItem(-1) {
-    menu = {"Чай", "Кофе", "Какао", "Молоко"};
-    prices = {30, 50, 40, 25};
+#include <sstream>
+
+Automata::Automata() : cash(0), state(States::OFF), selected_item(-1) {
+    menu = { "Чай", "Кофе", "Молоко", "Какао", "Горячий шоколад" };
+    prices = { 30, 50, 40, 45, 60 };
 }
 
 void Automata::on() {
-    if (state == STATES::OFF) {
-        state = STATES::WAIT;
-        cash = 0;
-        selectedItem = -1;
-        std::cout << "Автомат включён. Состояние: ОЖИДАНИЕ\n";
+    if (state == States::OFF) {
+        state = States::WAIT;
+        std::cout << "Автомат включен. Состояние: WAIT\n";
     } else {
-        std::cout << "Нельзя включить – автомат уже не в состоянии OFF\n";
+        std::cout << "Автомат уже включен или не в состоянии OFF\n";
     }
 }
 
 void Automata::off() {
-    if (state == STATES::WAIT) {
-        state = STATES::OFF;
+    if (state != States::COOK) {
+        state = States::OFF;
         cash = 0;
-        selectedItem = -1;
-        std::cout << "Автомат выключен.\n";
+        selected_item = -1;
+        std::cout << "Автомат выключен. Состояние: OFF\n";
     } else {
-        std::cout << "Выключение возможно только из состояния ОЖИДАНИЕ\n";
+        std::cout << "Невозможно выключить во время приготовления\n";
     }
 }
 
 void Automata::coin(int amount) {
-    if (state == STATES::WAIT) {
-        state = STATES::ACCEPT;
+    if (amount <= 0) {
+        std::cout << "Некорректная сумма\n";
+        return;
+    }
+    if (state == States::WAIT || state == States::ACCEPT) {
         cash += amount;
-        std::cout << "Внесено " << amount << " руб. Переход в ПРИЁМ ДЕНЕГ\n";
-    } else if (state == STATES::ACCEPT) {
-        cash += amount;
-        std::cout << "Внесено " << amount << " руб. Баланс: " << cash << " руб.\n";
+        state = States::ACCEPT;
+        std::cout << "Внесено " << amount << " руб. Текущая сумма: "
+                  << cash << "\n";
     } else {
-        std::cout << "Монету можно внести только в состояниях ОЖИДАНИЕ или ПРИЁМ ДЕНЕГ\n";
+        std::cout << "Нельзя внести деньги в текущем состоянии\n";
     }
 }
 
@@ -48,89 +49,95 @@ std::string Automata::getMenu() const {
     std::stringstream ss;
     ss << "Меню:\n";
     for (size_t i = 0; i < menu.size(); ++i) {
-        ss << i + 1 << ". " << menu[i] << " - " << prices[i] << " руб.\n";
+        ss << i + 1 << ". " << menu[i] << " - "
+           << prices[i] << " руб.\n";
     }
     return ss.str();
 }
 
 std::string Automata::getState() const {
     switch (state) {
-        case STATES::OFF:    return "OFF (Выключен)";
-        case STATES::WAIT:   return "WAIT (Ожидание)";
-        case STATES::ACCEPT: return "ACCEPT (Приём денег)";
-        case STATES::CHECK:  return "CHECK (Проверка средств)";
-        case STATES::COOK:   return "COOK (Приготовление)";
+        case States::OFF:    return "OFF (Выключен)";
+        case States::WAIT:   return "WAIT (Ожидание)";
+        case States::ACCEPT: return "ACCEPT (Приём денег)";
+        case States::CHECK:  return "CHECK (Проверка средств)";
+        case States::COOK:   return "COOK (Приготовление)";
         default:             return "UNKNOWN";
     }
 }
 
 void Automata::choice(int index) {
-    if (state != STATES::ACCEPT) {
-        std::cout << "Выбор напитка возможен только в состоянии ПРИЁМ ДЕНЕГ\n";
+    if (state != States::ACCEPT) {
+        std::cout << "Выбор напитка возможен только в состоянии ACCEPT\n";
         return;
     }
     if (index < 0 || index >= static_cast<int>(menu.size())) {
         std::cout << "Неверный номер напитка\n";
         return;
     }
-    selectedItem = index;
-    state = STATES::CHECK;
-    std::cout << "Выбран напиток: " << menu[selectedItem] << " (" << prices[selectedItem] << " руб.)\n";
+    selected_item = index;
+    state = States::CHECK;
+    std::cout << "Выбран напиток: " << menu[selected_item] << "\n";
 }
 
 bool Automata::check() {
-    if (state != STATES::CHECK) {
+    if (state != States::CHECK) {
         std::cout << "Проверка возможна только в состоянии CHECK\n";
         return false;
     }
-    if (selectedItem == -1) {
-        std::cout << "Напиток не выбран\n";
-        state = STATES::ACCEPT;
-        return false;
-    }
-    if (cash >= prices[selectedItem]) {
-        std::cout << "Средств достаточно. Начинаем приготовление...\n";
-        state = STATES::COOK;
+    if (cash >= prices[selected_item]) {
+        state = States::COOK;
+        std::cout << "Денег достаточно. Начинаем приготовление...\n";
         return true;
     } else {
-        std::cout << "Недостаточно средств. Нужно ещё " << (prices[selectedItem] - cash) << " руб.\n";
-        state = STATES::ACCEPT;
+        std::cout << "Недостаточно средств. Не хватает "
+                  << (prices[selected_item] - cash) << " руб.\n";
+        state = States::ACCEPT;
         return false;
     }
 }
 
 void Automata::cancel() {
-    if (state == STATES::ACCEPT || state == STATES::CHECK) {
-        std::cout << "Отмена сеанса. Возврат " << cash << " руб.\n";
-        cash = 0;
-        selectedItem = -1;
-        state = STATES::WAIT;
-    } else if (state == STATES::WAIT) {
-        std::cout << "Нет активного сеанса для отмены\n";
+    if (state == States::WAIT || state == States::ACCEPT) {
+        if (cash > 0) {
+            std::cout << "Возврат денег: " << cash << " руб.\n";
+            cash = 0;
+        }
+        selected_item = -1;
+        state = States::WAIT;
+        std::cout << "Операция отменена. Состояние: WAIT\n";
     } else {
         std::cout << "Отмена невозможна в текущем состоянии\n";
     }
 }
 
 void Automata::cook() {
-    if (state != STATES::COOK) {
+    if (state != States::COOK) {
         std::cout << "Приготовление возможно только в состоянии COOK\n";
         return;
     }
-    std::cout << "Готовим " << menu[selectedItem] << "... ";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << "Готово!\n";
+    std::cout << "Приготовление " << menu[selected_item] << "...\n";
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::cout << "Напиток готов!\n";
+    finish();
 }
 
 void Automata::finish() {
-    if (state != STATES::COOK) {
-        std::cout << "Завершение возможно только в состоянии COOK\n";
+    if (state != States::COOK && state != States::ACCEPT) {
+        std::cout << "Завершение невозможно в текущем состоянии\n";
         return;
     }
-    cash -= prices[selectedItem];
-    std::cout << "Выдан " << menu[selectedItem] << ". Сдача: " << cash << " руб.\n";
-    cash = 0;
-    selectedItem = -1;
-    state = STATES::WAIT;
-    std::cout << "Автомат вернулся в состояние ОЖИДАНИЕ\n";
+    if (state == States::COOK) {
+        int price = prices[selected_item];
+        cash -= price;
+        std::cout << "Списано " << price << " руб. Остаток: "
+                  << cash << " руб.\n";
+        if (cash > 0) {
+            std::cout << "Ваша сдача: " << cash << " руб.\n";
+            cash = 0;
+        }
+    }
+    selected_item = -1;
+    state = States::WAIT;
+    std::cout << "Сеанс завершен. Автомат в состоянии WAIT\n";
 }

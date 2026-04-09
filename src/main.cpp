@@ -1,56 +1,39 @@
 // Copyright 2026
 #include "Automata.h"
 #include <iostream>
+#include <clocale>
 
 int main() {
-    Automata machine;
+    setlocale(LC_ALL, "Russian");
 
-    std::cout << "=== Демонстрация работы автомата ===\n\n";
+    std::cout << "=== Демонстрация работы автомата ===\n";
+    Automata vm;
 
-    machine.on();
-    std::cout << machine.getState() << std::endl;
+    vm.on();
+    std::cout << vm.getMenu();      
 
-    std::cout << machine.getMenu();
+    vm.coin(100);
+    vm.choice(0);
+    vm.check();
+    vm.cook();
 
-    machine.coin(20);
-    std::cout << "Состояние: " << machine.getState() << std::endl;
+    std::cout << "\n--- Тест отмены ---\n";
+    Automata vm2;
+    vm2.on();
+    vm2.coin(50);
+    vm2.choice(1);
+    vm2.cancel();
+    std::cout << vm2.getMenu();    
 
-    machine.coin(30);
-    std::cout << "Баланс: " << machine.getCash() << " руб.\n";
-
-    machine.choice(1);
-    std::cout << "Состояние: " << machine.getState() << std::endl;
-
-    if (machine.check()) {
-        machine.cook();
-        machine.finish();
-    } else {
-        std::cout << "Ошибка: недостаточно денег. Отмена.\n";
-        machine.cancel();
-    }
-
-    std::cout << "\n--- Второй сеанс (недостаточно денег) ---\n";
-    machine.coin(10);
-    machine.choice(0);
-    if (!machine.check()) {
-        std::cout << "Не хватает, добавляем ещё монет...\n";
-        machine.coin(30);
-        machine.choice(0);
-        if (machine.check()) {
-            machine.cook();
-            machine.finish();
-        }
-    }
-
-    std::cout << "\n--- Отмена сеанса ---\n";
-    machine.coin(100);
-    machine.choice(2);
-    machine.cancel();
-    std::cout << "Состояние: " << machine.getState() << std::endl;
-
-    std::cout << "\n--- Выключение автомата ---\n";
-    machine.off();
-    std::cout << machine.getState() << std::endl;
+    std::cout << "\n--- Тест недостатка денег ---\n";
+    Automata vm3;
+    vm3.on();
+    vm3.coin(20);
+    vm3.choice(0);
+    vm3.check();                    
+    vm3.coin(10);                   
+    vm3.check();                    
+    vm3.cook();                     
 
     return 0;
 }
