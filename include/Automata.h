@@ -1,3 +1,5 @@
+// Copyright 2022 GHA Test Team
+
 #pragma once
 
 #ifndef INCLUDE_AUTOMATA_H_
