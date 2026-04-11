@@ -1,3 +1,5 @@
+// Copyright 2026 GHA Test Team
+
 #ifndef INCLUDE_AUTOMATA_H_
 #define INCLUDE_AUTOMATA_H_
 
@@ -33,4 +35,4 @@ class Automata {
     void finish();
 };
 
-#endif 
+#endif  // INCLUDE_AUTOMATA_H_

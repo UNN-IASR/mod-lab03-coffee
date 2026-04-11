@@ -1,3 +1,5 @@
+// Copyright 2026 GHA Test Team
+
 #include "Automata.h"
 #include <iostream>
 #include <string>
