@@ -1,8 +1,9 @@
+// Copyright 2022 GHA Test Team
+
 #include "Automata.h"
 #include <iostream>
 
-int main()
-{
+int main() {
   Automata a;
   std::cout << a.getState() << std::endl;
   a.on();
@@ -16,8 +17,9 @@ int main()
   if (a.check()) {
     std::cout << a.getState() << std::endl;
     a.cook();
-  } else
+  } else {
     a.cancel();
+  }
   std::cout << a.getState() << std::endl;
   a.coin(15);
   a.choice(1);
