@@ -1,35 +1,31 @@
-#include <windows.h>
 #include <iostream>
 #include "Automata.h"
 
-using namespace std;
-
 int main() {
-    SetConsoleOutputCP(CP_UTF8);
-    Automata a;
+  Automata a;
 
-    a.on();
+  a.on();
 
-    a.getMenu();
+  a.getMenu();
 
-    a.coin(50);
-    a.coin(50);
+  a.coin(50);
+  a.coin(50);
 
-    a.choice(1);
+  a.choice(1);
 
-    a.check();
+  a.check();
 
-    a.cook();
+  a.cook();
 
-    a.finish();
+  a.finish();
 
-    a.coin(30);
-    a.choice(0);
-    a.check(); 
+  a.coin(30);
+  a.choice(0);
+  a.check();
 
-    a.cancel();
+  a.cancel();
 
-    a.off();
+  a.off();
 
-    return 0;
+  return 0;
 }
