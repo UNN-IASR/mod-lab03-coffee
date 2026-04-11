@@ -1,3 +1,5 @@
+// Copyright 2022 GHA Test Team
+
 #include "Automata.h"
 #include <iostream>
 #include <string>
@@ -13,7 +15,7 @@ Automata::Automata() {
 void Automata::on() {
   if (state == OFF) {
     state = WAIT;
-	std::cout << "Automata is on and wait\n";
+    std::cout << "Automata is on and wait\n";
   } else {
     std::cout << "Automata can't switch to this state\n";
   }
@@ -44,7 +46,7 @@ void Automata::getMenu() {
     std::cout << "Menu:\n";
     for (unsigned int i = 0; i < menu.size(); i++) {
       std::cout << i + 1 << ") " << menu[i]
-		  << ": " << prices[i] << std::endl;
+        << ": " << prices[i] << std::endl;
     }
   }
 }
@@ -87,7 +89,9 @@ bool Automata::check() {
   } else if (state != OFF) {
     std::cout << "Automata can't switch to this state\n";
     return false;
-  } else return false;
+  } else {
+    return false;
+  }
 }
 
 void Automata::cancel() {
