@@ -1,3 +1,5 @@
+// Copyright 2026 Senatorova Maria
+
 #include "Automata.h"
 
 int main() {
@@ -8,7 +10,7 @@ int main() {
     a.choice(1);
     a.check();
     a.coin(30);
-    a.choice(1); 
+    a.choice(1);
     a.check();
     a.cook();
 
