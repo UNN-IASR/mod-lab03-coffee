@@ -1,3 +1,5 @@
+// Copyright 2026 <Your Name>
+
 #include <gtest/gtest.h>
 #include "Automata.h"
 

@@ -1,3 +1,5 @@
+// Copyright 2026 <Your Name>
+
 #include "Automata.h"
 #include <iostream>
 
@@ -35,7 +37,7 @@ void Automata::coin(double amount) {
 
 void Automata::getMenu() {
   std::cout << "Menu:\n";
-  for (int i = 0; i < static_cast<int>(menu.size()); i++) {
+  for (int i = 0; i < static_cast<int>(menu.size()); ++i) {
     std::cout << i << " - " << menu[i] << " (" << prices[i] << ")\n";
   }
 }

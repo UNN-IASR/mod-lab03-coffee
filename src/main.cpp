@@ -1,3 +1,5 @@
+// Copyright 2026 <Your Name>
+
 #include <iostream>
 #include "Automata.h"
 

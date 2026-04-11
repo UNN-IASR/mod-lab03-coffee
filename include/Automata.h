@@ -1,5 +1,7 @@
-#ifndef AUTOMATA_H
-#define AUTOMATA_H
+// Copyright 2026 Yurtaev Nikita
+
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
 
 #include <string>
 #include <vector>
@@ -29,11 +31,11 @@ class Automata {
   void finish();
 
  private:
-  double cash;                       // текущие деньги
-  std::vector<std::string> menu;     // напитки
-  std::vector<double> prices;        // цены
-  STATES state;                      // текущее состояние
-  int choiceIndex;                   // выбранный напиток
+  double cash;
+  std::vector<std::string> menu;
+  std::vector<double> prices;
+  STATES state;
+  int choiceIndex;
 };
 
-#endif  // AUTOMATA_H
+#endif  // INCLUDE_AUTOMATA_H_
