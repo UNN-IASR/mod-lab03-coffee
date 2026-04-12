@@ -1,88 +1,104 @@
-// Copyright 2026 Your Name
+// Copyright 2022 GHA Test Team
+// Copyright 2024 GHA Test Team
 
 #include <gtest/gtest.h>
 
-#include <stdexcept>
-#include <string>
-#include <vector>
+#include "../include/Automata.h"
 
-#include "Automata.h"
-
-TEST(AutomataTest, InitialState) {
-    Automata a;
-    EXPECT_EQ(a.getState(), STATES::OFF);
+TEST(AutomataTest, InitialStateIsOff) {
+    Automata vm;
+    EXPECT_EQ(vm.getState(), STATES::OFF);
+    EXPECT_EQ(vm.getCash(), 0);
 }
 
-TEST(AutomataTest, OnWorks) {
-    Automata a;
-    a.on();
-    EXPECT_EQ(a.getState(), STATES::READY);
+TEST(AutomataTest, OnChangesStateToWait) {
+    Automata vm;
+    EXPECT_TRUE(vm.on());
+    EXPECT_EQ(vm.getState(), STATES::WAIT);
 }
 
-TEST(AutomataTest, CoinAddsMoney) {
-    Automata a;
-    a.on();
-    a.coin(50);
-    EXPECT_EQ(a.getCash(), 50);
+TEST(AutomataTest, OffFromWaitChangesStateToOff) {
+    Automata vm;
+    vm.on();
+    EXPECT_TRUE(vm.off());
+    EXPECT_EQ(vm.getState(), STATES::OFF);
 }
 
-TEST(AutomataTest, CoinWhenOffThrows) {
-    Automata a;
-    EXPECT_THROW(a.coin(10), std::runtime_error);
+TEST(AutomataTest, CoinInWaitStateChangesToAccept) {
+    Automata vm;
+    vm.on();
+    EXPECT_TRUE(vm.coin(50));
+    EXPECT_EQ(vm.getState(), STATES::ACCEPT);
+    EXPECT_EQ(vm.getCash(), 50);
 }
 
-TEST(AutomataTest, ChoiceWithoutMoneyThrows) {
-    Automata a;
-    a.on();
-    EXPECT_THROW(a.choice(0), std::runtime_error);
+TEST(AutomataTest, CoinInAcceptStateAccumulates) {
+    Automata vm;
+    vm.on();
+    vm.coin(25);
+    vm.coin(25);
+    vm.coin(50);
+    EXPECT_EQ(vm.getCash(), 100);
+    EXPECT_EQ(vm.getState(), STATES::ACCEPT);
 }
 
-TEST(AutomataTest, InvalidChoiceThrows) {
-    Automata a;
-    a.on();
-    a.coin(100);
-    EXPECT_THROW(a.choice(10), std::out_of_range);
+TEST(AutomataTest, ChoiceChangesStateToCheck) {
+    Automata vm;
+    vm.on();
+    vm.coin(100);
+    EXPECT_TRUE(vm.choice(0));
+    EXPECT_EQ(vm.getState(), STATES::CHECK);
 }
 
-TEST(AutomataTest, CheckTrue) {
-    Automata a;
-    a.on();
-    a.coin(50);
-    a.choice(0);
-    EXPECT_TRUE(a.check());
+TEST(AutomataTest, CheckReturnsTrueWithSufficientFunds) {
+    Automata vm;
+    vm.on();
+    vm.coin(75);
+    vm.choice(1);
+    EXPECT_TRUE(vm.check());
 }
 
-TEST(AutomataTest, CheckFalse) {
-    Automata a;
-    a.on();
-    a.coin(10);
-    a.choice(1);
-    EXPECT_FALSE(a.check());
+TEST(AutomataTest, CheckReturnsFalseWithInsufficientFunds) {
+    Automata vm;
+    vm.on();
+    vm.coin(50);
+    vm.choice(1);
+    EXPECT_FALSE(vm.check());
 }
 
-TEST(AutomataTest, CookWorks) {
-    Automata a;
-    a.on();
-    a.coin(50);
-    a.choice(0);
-    a.cook();
-    EXPECT_EQ(a.getState(), STATES::COOKING);
+TEST(AutomataTest, CookDeductsPriceAndChangesState) {
+    Automata vm;
+    vm.on();
+    vm.coin(75);
+    vm.choice(1);
+    EXPECT_TRUE(vm.cook());
+    EXPECT_EQ(vm.getState(), STATES::COOK);
+    EXPECT_EQ(vm.getCash(), 0);
 }
 
-TEST(AutomataTest, FinishWorks) {
-    Automata a;
-    a.on();
-    a.coin(100);
-    a.choice(1);
-    a.cook();
-    a.finish();
-    EXPECT_EQ(a.getState(), STATES::FINISHED);
+TEST(AutomataTest, FinishReturnsToWaitState) {
+    Automata vm;
+    vm.on();
+    vm.coin(75);
+    vm.choice(1);
+    vm.cook();
+    EXPECT_TRUE(vm.finish());
+    EXPECT_EQ(vm.getState(), STATES::WAIT);
+    EXPECT_EQ(vm.getCash(), 0);
 }
 
-TEST(AutomataTest, CancelWorks) {
-    Automata a;
-    a.on();
-    a.coin(40);
-    a.cancel();
-    EXPECT_EQ(a.getCash(), 0);
+TEST(AutomataTest, CancelRefundsAndReturnsToWait) {
+    Automata vm;
+    vm.on();
+    vm.coin(100);
+    EXPECT_TRUE(vm.cancel());
+    EXPECT_EQ(vm.getState(), STATES::WAIT);
+    EXPECT_EQ(vm.getCash(), 0);
+}
+
+TEST(AutomataTest, CoinFailsWhenOff) {
+    Automata vm;
+    bool result = vm.coin(50);
+    EXPECT_FALSE(result);
+    EXPECT_EQ(vm.getState(), STATES::OFF);
 }
