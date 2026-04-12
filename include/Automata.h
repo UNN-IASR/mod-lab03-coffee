@@ -1,3 +1,5 @@
+// Copyright 2026 EnganK
+
 #pragma once
 #include <string>
 #include <vector>
@@ -8,7 +10,7 @@ class Automata {
     std::vector<int> prices;
     STATES state = STATES::OFF;
     void loadMenu();
-public:
+ public:
     Automata();
     void on();
     void off();
