@@ -1,158 +1,151 @@
-#include "Automata.h"
+// Copyright 2024 GHA Test Team
 
-#include <sstream>
-#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
 
-Automata::Automata()
-    : cash(0),
-      menu({"Tea", "Coffee", "Milk"}),
-      prices({30, 50, 25}),
-      state(STATES::OFF),
-      selectedIndex(-1) {}
+#include "../include/Automata.h"
 
-Automata::Automata(const std::vector<std::string>& menu_,
-                   const std::vector<int>& prices_)
-    : cash(0), menu(menu_), prices(prices_),
-      state(STATES::OFF), selectedIndex(-1) {
-    if (menu.size() != prices.size()) {
-        throw std::invalid_argument("Menu and prices sizes must match");
-    }
-
-    for (int price : prices) {
-        if (price < 0) {
-            throw std::invalid_argument("Price must be non-negative");
-        }
+std::string stateToStr(STATES s) {
+    switch (s) {
+        case STATES::OFF:
+            return "OFF";
+        case STATES::WAIT:
+            return "WAIT";
+        case STATES::ACCEPT:
+            return "ACCEPT";
+        case STATES::CHECK:
+            return "CHECK";
+        case STATES::COOK:
+            return "COOK";
+        default:
+            return "UNKNOWN";
     }
 }
 
-void Automata::on() {
-    if (state == STATES::OFF) {
-        cash = 0;
-        selectedIndex = -1;
-        state = STATES::READY;
+Automata::Automata(std::vector<std::string> menu,
+                   std::vector<int> prices)
+    : cash_(0), state_(STATES::OFF), selected_idx_(-1) {
+    if (menu.empty()) {
+        menu_ = {"Tea", "Coffee", "Juice", "Water"};
+    } else {
+        menu_ = std::move(menu);
+    }
+
+    if (prices.empty()) {
+        prices_ = {50, 75, 60, 30};
+    } else {
+        prices_ = std::move(prices);
     }
 }
 
-void Automata::off() {
-    cash = 0;
-    selectedIndex = -1;
-    state = STATES::OFF;
+bool Automata::on() {
+    if (state_ == STATES::OFF) {
+        state_ = STATES::WAIT;
+        return true;
+    }
+    return false;
 }
 
-void Automata::coin(int amount) {
-    if (state == STATES::OFF) {
-        throw std::runtime_error("Machine is off");
+bool Automata::off() {
+    if (state_ == STATES::WAIT || state_ == STATES::OFF) {
+        state_ = STATES::OFF;
+        cash_ = 0;
+        selected_idx_ = -1;
+        return true;
     }
+    return false;
+}
 
+bool Automata::coin(int amount) {
     if (amount <= 0) {
-        throw std::invalid_argument("Amount must be positive");
+        return false;
     }
 
-    cash += amount;
-    state = STATES::WAIT_CHOICE;
+    if (state_ == STATES::WAIT) {
+        state_ = STATES::ACCEPT;
+        cash_ += amount;
+        return true;
+    }
+
+    if (state_ == STATES::ACCEPT) {
+        cash_ += amount;
+        return true;
+    }
+
+    return false;
 }
 
-std::string Automata::getMenu() const {
-    std::ostringstream out;
+std::vector<std::pair<std::string, int>> Automata::getMenu() const {
+    std::vector<std::pair<std::string, int>> result;
 
-    for (size_t i = 0; i < menu.size(); ++i) {
-        out << i << ". " << menu[i] << " - " << prices[i] << " rub.";
-        if (i + 1 != menu.size()) {
-            out << '\n';
+    if (state_ == STATES::WAIT || state_ == STATES::ACCEPT ||
+        state_ == STATES::CHECK) {
+        for (size_t i = 0; i < menu_.size(); ++i) {
+            result.emplace_back(menu_[i], prices_[i]);
         }
     }
 
-    return out.str();
+    return result;
 }
 
 STATES Automata::getState() const {
-    return state;
+    return state_;
 }
 
-std::string Automata::choice(int index) {
-    if (state == STATES::OFF) {
-        throw std::runtime_error("Machine is off");
+bool Automata::choice(int index) {
+    if (state_ == STATES::ACCEPT) {
+        if (index >= 0 && index < static_cast<int>(menu_.size())) {
+            selected_idx_ = index;
+            state_ = STATES::CHECK;
+            return true;
+        }
     }
 
-    if (cash <= 0) {
-        state = STATES::WAIT_MONEY;
-        throw std::runtime_error("Insert money first");
-    }
-
-    if (index < 0 || index >= static_cast<int>(menu.size())) {
-        throw std::out_of_range("Invalid drink index");
-    }
-
-    selectedIndex = index;
-    state = STATES::CHECKING;
-    return menu[index];
+    return false;
 }
 
 bool Automata::check() const {
-    if (state != STATES::CHECKING) {
-        throw std::runtime_error("Check is not available now");
+    if (state_ == STATES::CHECK) {
+        return cash_ >= prices_[selected_idx_];
     }
 
-    return cash >= prices[selectedIndex];
+    return false;
 }
 
-std::string Automata::cook() {
-    if (state != STATES::CHECKING) {
-        throw std::runtime_error("Cooking is not available now");
+bool Automata::cancel() {
+    if (state_ == STATES::ACCEPT || state_ == STATES::CHECK) {
+        cash_ = 0;
+        selected_idx_ = -1;
+        state_ = STATES::WAIT;
+        return true;
     }
 
-    if (cash < prices[selectedIndex]) {
-        throw std::runtime_error("Not enough money");
-    }
-
-    cash -= prices[selectedIndex];
-    state = STATES::COOKING;
-
-    return "Cooking " + menu[selectedIndex];
+    return false;
 }
 
-int Automata::cancel() {
-    if (state == STATES::OFF) {
-        throw std::runtime_error("Machine is off");
-    }
-
-    int refund = cash;
-    cash = 0;
-    selectedIndex = -1;
-    state = STATES::CANCELLED;
-
-    return refund;
-}
-
-std::string Automata::finish() {
-    if (state != STATES::COOKING && state != STATES::CANCELLED) {
-        throw std::runtime_error("Finish is not available now");
-    }
-
-    std::ostringstream out;
-
-    if (state == STATES::COOKING) {
-        out << "Drink is ready";
-        if (cash > 0) {
-            out << ". Change: " << cash << " rub.";
-        } else {
-            out << ". No change.";
+bool Automata::cook() {
+    if (state_ == STATES::CHECK) {
+        if (check()) {
+            cash_ -= prices_[selected_idx_];
+            state_ = STATES::COOK;
+            return true;
         }
-    } else {
-        out << "Service cancelled";
     }
 
-    cash = 0;
-    selectedIndex = -1;
-    state = STATES::FINISHED;
+    return false;
+}
 
-    return out.str();
+bool Automata::finish() {
+    if (state_ == STATES::COOK) {
+        selected_idx_ = -1;
+        state_ = STATES::WAIT;
+        return true;
+    }
+
+    return false;
 }
 
 int Automata::getCash() const {
-    return cash;
-}
-
-int Automata::getSelectedIndex() const {
-    return selectedIndex;
+    return cash_;
 }
