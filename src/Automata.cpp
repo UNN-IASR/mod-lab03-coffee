@@ -38,13 +38,11 @@ void Automata::coin(int money) {
         state = STATES::ACCEPT;
         std::cout << "The machine accepts money. Introduced: "
             << money << " rubles'. Balance: " << cash << std::endl;
-    }
-    else if (state == STATES::ACCEPT) {
+    } else if (state == STATES::ACCEPT) {
         cash += money;
         std::cout << "The machine accepts money. Introduced: "
             << money << " rubles'. Balance: " << cash << std::endl;
-    }
-    else if (state == STATES::CHECK) {
+    } else if (state == STATES::CHECK) {
         cash += money;
         std::cout << "The machine accepts money. Introduced: "
             << money << " rubles'. Balance: " << cash << std::endl;
