@@ -6,24 +6,20 @@ void Automata::loadMenu() {
     menu = { "tea", "coffee", "milk" };
     prices = { 30, 50, 40 };
 }
-Automata::Automata() 
-{ 
+Automata::Automata() { 
     loadMenu(); 
 }
-void Automata::on()
-{
+void Automata::on() {
     if (state == STATES::OFF)
     {
         cash = 0; state = STATES::WAIT;
     }
 }
-void Automata::off() 
-{
+void Automata::off() {
     if (state == STATES::WAIT)
         state = STATES::OFF;
 }
-void Automata::coin(int sum) 
-{
+void Automata::coin(int sum) {
     if (state == STATES::WAIT || state == STATES::ACCEPT) 
     {
         cash += sum;
@@ -36,8 +32,7 @@ std::string Automata::etMenu() const {
         o << i << ") " << menu[i] << " " << prices[i] << "\n";
     return o.str();
 }
-STATES Automata::getState() const 
-{
+STATES Automata::getState() const {
     return state;
 }
 void Automata::choice(int idx) {
@@ -57,13 +52,11 @@ void Automata::cancel() {
         state = STATES::WAIT;
     }
 }
-void Automata::cook() 
-{
+void Automata::cook() {
     if (state == STATES::CHECK)
         state = STATES::COOK;
 }
-void Automata::finish() 
-{
+void Automata::finish() {
     if (state == STATES::COOK)
     {
         cash = 0; state = STATES::WAIT;
