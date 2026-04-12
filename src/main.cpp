@@ -1,5 +1,7 @@
-#include "../include/Automata.h"
+// Copyright 2026 EnganK
+
 #include <iostream>
+#include "../include/Automata.h"
 int main() {
     Automata a;
     a.on();

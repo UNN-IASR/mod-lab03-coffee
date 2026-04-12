@@ -7,11 +7,10 @@ void Automata::loadMenu() {
     prices = { 30, 50, 40 };
 }
 Automata::Automata() { 
-    loadMenu(); 
+    loadMenu();
 }
 void Automata::on() {
-    if (state == STATES::OFF)
-    {
+    if (state == STATES::OFF) {
         cash = 0; state = STATES::WAIT;
     }
 }
@@ -20,8 +19,7 @@ void Automata::off() {
         state = STATES::OFF;
 }
 void Automata::coin(int sum) {
-    if (state == STATES::WAIT || state == STATES::ACCEPT) 
-    {
+    if (state == STATES::WAIT || state == STATES::ACCEPT) {
         cash += sum;
         state = STATES::ACCEPT;
     }
@@ -46,8 +44,7 @@ void Automata::check() {
     state = cash >= need ? STATES::COOK : STATES::CHECK;
 }
 void Automata::cancel() {
-    if (state == STATES::ACCEPT || state == STATES::CHECK) 
-    {
+    if (state == STATES::ACCEPT || state == STATES::CHECK) {
         cash = 0;
         state = STATES::WAIT;
     }
@@ -57,8 +54,8 @@ void Automata::cook() {
         state = STATES::COOK;
 }
 void Automata::finish() {
-    if (state == STATES::COOK)
-    {
-        cash = 0; state = STATES::WAIT;
+    if (state == STATES::COOK) {
+        cash = 0;
+        state = STATES::WAIT;
     }
 }
