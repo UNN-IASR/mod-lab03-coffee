@@ -12,4 +12,5 @@ int demo() {
     a.cook();
     a.finish();
     a.off();
+    return 0;
 }
