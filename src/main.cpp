@@ -11,7 +11,7 @@ int main() {
     a.coin(100);
     a.getMenu();
 
-    a.choice(1); 
+    a.choice(1);
     if (a.check()) {
         a.cook();
         a.finish();
