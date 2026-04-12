@@ -3,39 +3,34 @@
 #include <gtest/gtest.h>
 #include "Automata.h"
 
-TEST(AutomataTest, TurnOn)
-{
+TEST(AutomataTest, TurnOn) {
     Automata a;
     a.on();
     EXPECT_EQ(a.getState(), WAIT);
 }
 
-TEST(AutomataTest, TurnOff)
-{
+TEST(AutomataTest, TurnOff) {
     Automata a;
     a.on();
     a.off();
     EXPECT_EQ(a.getState(), OFF);
 }
 
-TEST(AutomataTest, InsertCoin)
-{
+TEST(AutomataTest, InsertCoin) {
     Automata a;
     a.on();
     a.coin(50);
     EXPECT_EQ(a.getState(), ACCEPT);
 }
 
-TEST(AutomataTest, ChoiceWithoutMoney)
-{
+TEST(AutomataTest, ChoiceWithoutMoney) {
     Automata a;
     a.on();
     a.choice(1);
     EXPECT_NE(a.getState(), CHECK);
 }
 
-TEST(AutomataTest, NotEnoughMoney)
-{
+TEST(AutomataTest, NotEnoughMoney) {
     Automata a;
     a.on();
     a.coin(10);
@@ -44,8 +39,7 @@ TEST(AutomataTest, NotEnoughMoney)
     EXPECT_EQ(a.getState(), WAIT);
 }
 
-TEST(AutomataTest, EnoughMoney)
-{
+TEST(AutomataTest, EnoughMoney) {
     Automata a;
     a.on();
     a.coin(100);
@@ -54,8 +48,7 @@ TEST(AutomataTest, EnoughMoney)
     EXPECT_EQ(a.getState(), COOK);
 }
 
-TEST(AutomataTest, Cooking)
-{
+TEST(AutomataTest, Cooking) {
     Automata a;
     a.on();
     a.coin(100);
@@ -65,8 +58,7 @@ TEST(AutomataTest, Cooking)
     EXPECT_EQ(a.getState(), WAIT);
 }
 
-TEST(AutomataTest, Finish)
-{
+TEST(AutomataTest, Finish) {
     Automata a;
     a.on();
     a.coin(100);
@@ -77,8 +69,7 @@ TEST(AutomataTest, Finish)
     EXPECT_EQ(a.getState(), WAIT);
 }
 
-TEST(AutomataTest, Cancel)
-{
+TEST(AutomataTest, Cancel) {
     Automata a;
     a.on();
     a.coin(50);
@@ -86,8 +77,7 @@ TEST(AutomataTest, Cancel)
     EXPECT_EQ(a.getState(), WAIT);
 }
 
-TEST(AutomataTest, MultipleCoins)
-{
+TEST(AutomataTest, MultipleCoins) {
     Automata a;
     a.on();
     a.coin(30);
@@ -95,8 +85,7 @@ TEST(AutomataTest, MultipleCoins)
     EXPECT_EQ(a.getState(), ACCEPT);
 }
 
-TEST(AutomataTest, CookWithoutCheck)
-{
+TEST(AutomataTest, CookWithoutCheck) {
     Automata a;
     a.on();
     a.coin(100);
@@ -104,8 +93,7 @@ TEST(AutomataTest, CookWithoutCheck)
     EXPECT_NE(a.getState(), COOK);
 }
 
-TEST(AutomataTest, ChoiceWhenOff)
-{
+TEST(AutomataTest, ChoiceWhenOff) {
     Automata a;
     a.choice(1);
     EXPECT_EQ(a.getState(), OFF);
