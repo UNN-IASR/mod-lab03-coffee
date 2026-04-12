@@ -1,8 +1,10 @@
-#include "../include/Automata.h"
+// Copyright 2024 GHA Test Team
+
 #include <iostream>
 
-void runDemo()
-{
+#include "../include/Automata.h"
+
+void runDemo() {
     std::cout << "\n========== DEMO ==========\n";
 
     Automata vm;
@@ -12,15 +14,16 @@ void runDemo()
     std::cout << "2. on(): " << stateToStr(vm.getState()) << "\n";
 
     vm.coin(30);
-    std::cout << "3. coin(30): Balance=" << vm.getCash() << ", State=" << stateToStr(vm.getState()) << "\n";
+    std::cout << "3. coin(30): Balance=" << vm.getCash()
+              << ", State=" << stateToStr(vm.getState()) << "\n";
 
     vm.coin(20);
-    std::cout << "4. coin(20): Balance=" << vm.getCash() << ", State=" << stateToStr(vm.getState()) << "\n";
+    std::cout << "4. coin(20): Balance=" << vm.getCash()
+              << ", State=" << stateToStr(vm.getState()) << "\n";
 
     auto menu = vm.getMenu();
     std::cout << "5. Menu: ";
-    for (const auto &item : menu)
-    {
+    for (const auto &item : menu) {
         std::cout << item.first << "(" << item.second << ") ";
     }
     std::cout << "\n";
@@ -28,10 +31,12 @@ void runDemo()
     vm.choice(0);
     std::cout << "6. choice(0): State=" << stateToStr(vm.getState()) << "\n";
 
-    std::cout << "7. check(): " << (vm.check() ? "OK" : "FAIL") << "\n";
+    std::cout << "7. check(): "
+              << (vm.check() ? "OK" : "FAIL") << "\n";
 
     vm.cook();
-    std::cout << "8. cook(): Balance=" << vm.getCash() << ", State=" << stateToStr(vm.getState()) << "\n";
+    std::cout << "8. cook(): Balance=" << vm.getCash()
+              << ", State=" << stateToStr(vm.getState()) << "\n";
 
     vm.finish();
     std::cout << "9. finish(): State=" << stateToStr(vm.getState()) << "\n";
@@ -41,8 +46,7 @@ void runDemo()
     std::cout << "==========================\n";
 }
 
-int main()
-{
+int main() {
     runDemo();
     return 0;
 }

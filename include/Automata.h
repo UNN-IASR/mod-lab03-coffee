@@ -1,11 +1,13 @@
-#ifndef AUTOMATA_H
-#define AUTOMATA_H
-#include <vector>
+// Copyright 2024 GHA Test Team
+
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
+
 #include <string>
 #include <utility>
+#include <vector>
 
-enum class STATES
-{
+enum class STATES {
     OFF,
     WAIT,
     ACCEPT,
@@ -15,17 +17,17 @@ enum class STATES
 
 std::string stateToStr(STATES s);
 
-class Automata
-{
-private:
+class Automata {
+ private:
     int cash_;
     std::vector<std::string> menu_;
     std::vector<int> prices_;
     STATES state_;
     int selected_idx_;
 
-public:
-    Automata(std::vector<std::string> menu = {}, std::vector<int> prices = {});
+ public:
+    explicit Automata(std::vector<std::string> menu = {},
+                      std::vector<int> prices = {});
 
     bool on();
     bool off();
@@ -40,5 +42,4 @@ public:
 
     int getCash() const;
 };
-
-#endif
+#endif  // INCLUDE_AUTOMATA_H_

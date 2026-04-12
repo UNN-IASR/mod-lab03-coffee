@@ -1,29 +1,28 @@
+// Copyright 2024 GHA Test Team
+
 #include <gtest/gtest.h>
+
 #include "../include/Automata.h"
 
-TEST(AutomataTest, InitialStateIsOff)
-{
+TEST(AutomataTest, InitialStateIsOff) {
     Automata vm;
     EXPECT_EQ(vm.getState(), STATES::OFF);
 }
 
-TEST(AutomataTest, OnChangesStateToWait)
-{
+TEST(AutomataTest, OnChangesStateToWait) {
     Automata vm;
     vm.on();
     EXPECT_EQ(vm.getState(), STATES::WAIT);
 }
 
-TEST(AutomataTest, OffFromWaitChangesStateToOff)
-{
+TEST(AutomataTest, OffFromWaitChangesStateToOff) {
     Automata vm;
     vm.on();
     vm.off();
     EXPECT_EQ(vm.getState(), STATES::OFF);
 }
 
-TEST(AutomataTest, CoinInWaitStateChangesToAccept)
-{
+TEST(AutomataTest, CoinInWaitStateChangesToAccept) {
     Automata vm;
     vm.on();
     vm.coin(50);
@@ -31,8 +30,7 @@ TEST(AutomataTest, CoinInWaitStateChangesToAccept)
     EXPECT_EQ(vm.getCash(), 50);
 }
 
-TEST(AutomataTest, CoinInAcceptStateAccumulates)
-{
+TEST(AutomataTest, CoinInAcceptStateAccumulates) {
     Automata vm;
     vm.on();
     vm.coin(25);
@@ -42,8 +40,7 @@ TEST(AutomataTest, CoinInAcceptStateAccumulates)
     EXPECT_EQ(vm.getState(), STATES::ACCEPT);
 }
 
-TEST(AutomataTest, ChoiceChangesStateToCheck)
-{
+TEST(AutomataTest, ChoiceChangesStateToCheck) {
     Automata vm;
     vm.on();
     vm.coin(100);
@@ -51,8 +48,7 @@ TEST(AutomataTest, ChoiceChangesStateToCheck)
     EXPECT_EQ(vm.getState(), STATES::CHECK);
 }
 
-TEST(AutomataTest, CheckReturnsTrueWithSufficientFunds)
-{
+TEST(AutomataTest, CheckReturnsTrueWithSufficientFunds) {
     Automata vm;
     vm.on();
     vm.coin(75);
@@ -60,8 +56,7 @@ TEST(AutomataTest, CheckReturnsTrueWithSufficientFunds)
     EXPECT_TRUE(vm.check());
 }
 
-TEST(AutomataTest, CheckReturnsFalseWithInsufficientFunds)
-{
+TEST(AutomataTest, CheckReturnsFalseWithInsufficientFunds) {
     Automata vm;
     vm.on();
     vm.coin(50);
@@ -69,8 +64,7 @@ TEST(AutomataTest, CheckReturnsFalseWithInsufficientFunds)
     EXPECT_FALSE(vm.check());
 }
 
-TEST(AutomataTest, CookDeductsPriceAndChangesState)
-{
+TEST(AutomataTest, CookDeductsPriceAndChangesState) {
     Automata vm;
     vm.on();
     vm.coin(75);
@@ -80,8 +74,7 @@ TEST(AutomataTest, CookDeductsPriceAndChangesState)
     EXPECT_EQ(vm.getCash(), 0);
 }
 
-TEST(AutomataTest, FinishReturnsToWaitState)
-{
+TEST(AutomataTest, FinishReturnsToWaitState) {
     Automata vm;
     vm.on();
     vm.coin(75);
@@ -92,8 +85,7 @@ TEST(AutomataTest, FinishReturnsToWaitState)
     EXPECT_EQ(vm.getCash(), 0);
 }
 
-TEST(AutomataTest, CancelRefundsAndReturnsToWait)
-{
+TEST(AutomataTest, CancelRefundsAndReturnsToWait) {
     Automata vm;
     vm.on();
     vm.coin(100);
@@ -102,16 +94,14 @@ TEST(AutomataTest, CancelRefundsAndReturnsToWait)
     EXPECT_EQ(vm.getCash(), 0);
 }
 
-TEST(AutomataTest, CoinFailsWhenOff)
-{
+TEST(AutomataTest, CoinFailsWhenOff) {
     Automata vm;
     bool result = vm.coin(50);
     EXPECT_FALSE(result);
     EXPECT_EQ(vm.getState(), STATES::OFF);
 }
 
-TEST(AutomataTest, ChoiceFailsWithInvalidIndex)
-{
+TEST(AutomataTest, ChoiceFailsWithInvalidIndex) {
     Automata vm;
     vm.on();
     vm.coin(100);
@@ -120,8 +110,7 @@ TEST(AutomataTest, ChoiceFailsWithInvalidIndex)
     EXPECT_EQ(vm.getState(), STATES::ACCEPT);
 }
 
-TEST(AutomataTest, CookFailsWithoutSufficientFunds)
-{
+TEST(AutomataTest, CookFailsWithoutSufficientFunds) {
     Automata vm;
     vm.on();
     vm.coin(20);
@@ -131,8 +120,7 @@ TEST(AutomataTest, CookFailsWithoutSufficientFunds)
     EXPECT_EQ(vm.getState(), STATES::CHECK);
 }
 
-TEST(AutomataTest, OffFailsDuringTransaction)
-{
+TEST(AutomataTest, OffFailsDuringTransaction) {
     Automata vm;
     vm.on();
     vm.coin(50);
@@ -141,8 +129,7 @@ TEST(AutomataTest, OffFailsDuringTransaction)
     EXPECT_EQ(vm.getState(), STATES::ACCEPT);
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
