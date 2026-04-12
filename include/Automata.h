@@ -1,7 +1,6 @@
 // Copyright 2026 Belev Timur
-#ifndef AUTOMATA_H_
-#define AUTOMATA_H
-
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
 #include <string>
 #include <vector>
 
