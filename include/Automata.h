@@ -1,3 +1,4 @@
+// Copyright 2024 UNN-IASR
 #pragma once
 #include <vector>
 #include <string>
@@ -14,8 +15,8 @@ class Automata {
 private:
     int cash;
     std::vector<std::string> menu;
-    std::vector<int> prices;  
-    STATES state;      
+    std::vector<int> prices;
+    STATES state;
 
 public:
     Automata();

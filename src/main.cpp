@@ -1,12 +1,14 @@
-#include "../include/Automata.h"
+// Copyright 2024 UNN-IASR
 #include <iostream>
+#include "../include/Automata.h"
 
 int main() {
+    // Подключаем русский язык в консоли
     setlocale(LC_ALL, "Russian");
 
     Automata machine;
 
-    std::cout << "=== ��������� ������ ���������� ===" << std::endl;
+    std::cout << "=== Симуляция работы кофемашины ===" << std::endl;
 
     machine.on();
     machine.getMenu();

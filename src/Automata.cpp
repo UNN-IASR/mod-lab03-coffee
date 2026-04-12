@@ -1,24 +1,26 @@
+// Copyright 2024 UNN-IASR
 #include "../include/Automata.h"
 #include <iostream>
 
 Automata::Automata() {
     cash = 0;
     state = STATES::OFF;
-    menu = { "Эспрессо", "Американо", "Капучино", "Латте" };
+    // Р‘Р°Р·РѕРІРѕРµ РјРµРЅСЋ
+    menu = { "Р­СЃРїСЂРµСЃСЃРѕ", "РђРјРµСЂРёРєР°РЅРѕ", "РљР°РїСѓС‡РёРЅРѕ", "Р›Р°С‚С‚Рµ" };
     prices = { 50, 60, 100, 120 };
 }
 
 void Automata::on() {
     if (state == STATES::OFF) {
         state = STATES::WAIT;
-        std::cout << "Кофемашина включена. Ожидание..." << std::endl;
+        std::cout << "РљРѕС„РµРјР°С€РёРЅР° РІРєР»СЋС‡РµРЅР°. РћР¶РёРґР°РЅРёРµ..." << std::endl;
     }
 }
 
 void Automata::off() {
     if (state == STATES::WAIT) {
         state = STATES::OFF;
-        std::cout << "Кофемашина выключена." << std::endl;
+        std::cout << "РљРѕС„РµРјР°С€РёРЅР° РІС‹РєР»СЋС‡РµРЅР°." << std::endl;
     }
 }
 
@@ -26,14 +28,16 @@ void Automata::coin(int amount) {
     if (state == STATES::WAIT || state == STATES::ACCEPT) {
         state = STATES::ACCEPT;
         cash += amount;
-        std::cout << "Внесено: " << amount << " руб. Баланс: " << cash << " руб." << std::endl;
+        std::cout << "Р’РЅРµСЃРµРЅРѕ: " << amount
+            << " СЂСѓР±. Р‘Р°Р»Р°РЅСЃ: " << cash << " СЂСѓР±." << std::endl;
     }
 }
 
 void Automata::getMenu() const {
-    std::cout << "\n--- Меню напитков ---" << std::endl;
+    std::cout << "\n--- РњРµРЅСЋ РЅР°РїРёС‚РєРѕРІ ---" << std::endl;
     for (size_t i = 0; i < menu.size(); ++i) {
-        std::cout << i + 1 << ". " << menu[i] << " - " << prices[i] << " руб." << std::endl;
+        std::cout << i + 1 << ". " << menu[i]
+            << " - " << prices[i] << " СЂСѓР±." << std::endl;
     }
     std::cout << "---------------------\n" << std::endl;
 }
@@ -46,15 +50,16 @@ void Automata::choice(int index) {
     if (state == STATES::ACCEPT) {
         state = STATES::CHECK;
         if (index > 0 && index <= menu.size()) {
-            std::cout << "Выбран напиток: " << menu[index - 1] << ". Проверка средств..." << std::endl;
+            std::cout << "Р’С‹Р±СЂР°РЅ РЅР°РїРёС‚РѕРє: " << menu[index - 1]
+                << ". РџСЂРѕРІРµСЂРєР° СЃСЂРµРґСЃС‚РІ..." << std::endl;
         }
         else {
-            std::cout << "Неверный выбор напитка!" << std::endl;
+            std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ РЅР°РїРёС‚РєР°!" << std::endl;
             cancel();
         }
     }
     else {
-        std::cout << "Ошибка: сначала внесите деньги." << std::endl;
+        std::cout << "РћС€РёР±РєР°: СЃРЅР°С‡Р°Р»Р° РІРЅРµСЃРёС‚Рµ РґРµРЅСЊРіРё." << std::endl;
     }
 }
 
@@ -64,7 +69,7 @@ bool Automata::check(int index) {
             return true;
         }
         else {
-            std::cout << "Недостаточно средств для этого напитка!" << std::endl;
+            std::cout << "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃСЂРµРґСЃС‚РІ РґР»СЏ СЌС‚РѕРіРѕ РЅР°РїРёС‚РєР°!" << std::endl;
             return false;
         }
     }
@@ -74,7 +79,8 @@ bool Automata::check(int index) {
 void Automata::cancel() {
     if (state == STATES::ACCEPT || state == STATES::CHECK) {
         state = STATES::WAIT;
-        std::cout << "Отмена операции. Возврат средств: " << cash << " руб." << std::endl;
+        std::cout << "РћС‚РјРµРЅР° РѕРїРµСЂР°С†РёРё. Р’РѕР·РІСЂР°С‚ СЃСЂРµРґСЃС‚РІ: "
+            << cash << " СЂСѓР±." << std::endl;
         cash = 0;
     }
 }
@@ -84,7 +90,8 @@ void Automata::cook(int index) {
         if (check(index)) {
             state = STATES::COOK;
             cash -= prices[index - 1];
-            std::cout << "Приготовление " << menu[index - 1] << "..." << std::endl;
+            std::cout << "РџСЂРёРіРѕС‚РѕРІР»РµРЅРёРµ " << menu[index - 1]
+                << "..." << std::endl;
         }
         else {
             cancel();
@@ -95,7 +102,8 @@ void Automata::cook(int index) {
 void Automata::finish() {
     if (state == STATES::COOK) {
         state = STATES::WAIT;
-        std::cout << "Напиток готов! Заберите сдачу: " << cash << " руб." << std::endl;
+        std::cout << "РќР°РїРёС‚РѕРє РіРѕС‚РѕРІ! Р—Р°Р±РµСЂРёС‚Рµ СЃРґР°С‡Сѓ: "
+            << cash << " СЂСѓР±." << std::endl;
         cash = 0;
     }
 }
