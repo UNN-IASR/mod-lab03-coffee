@@ -70,6 +70,7 @@ void Automata::cook() {
     if (state == COOK) {
         std::cout << "Cooking " << menu[selectedIndex] << "...\n";
         cash -= prices[selectedIndex];
+        state = WAIT; 
     }
 }
 
