@@ -165,4 +165,3 @@ void testGiveChange() {
     assert(automata.getCash() == 0.0);
     std::cout << "✓ testGiveChange passed" << std::endl;
 }
-}
