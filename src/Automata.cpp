@@ -39,7 +39,7 @@ void Automata::coin(double amount) {
         std::cout << "Внесено: " << amount << " руб" << std::endl;
     } else if (state == State::ACCEPT) {
         cash += amount;
-        std::cout << "Добавлено: " << amount << " руб.<< std::endl;
+        std::cout << "Добавлено: " << amount << " руб."<< std::endl;
     } else {
         std::cout << "Невозможно внести" << std::endl;
     }
@@ -74,7 +74,7 @@ bool Automata::choice(int index) {
     selectedDrink = menu[index - 1];
     selectedPrice = prices[index - 1];
     state = State::CHECK;
-    std::cout << "Выбран напиток: " << selectedDrink << " (" << selectedPrice << " руб.)" << std::endl;
+    std::cout << "Выбран напиток: " << selectedDrink << std::endl;
     std::cout << "Состояние: ПРОВЕРКА НАЛИЧНОСТИ" << std::endl;
     return true;
 }
@@ -82,24 +82,24 @@ bool Automata::check() {
     if (state != State::CHECK) {
         std::cout << "Ошибка: автомат не в состоянии проверки!" << std::endl;
         return false;
-    }  
+    }
     if (cash >= selectedPrice) {
         std::cout << "Суммы достаточно. Начинаем приготовление..." << std::endl;
         return true;
     } else {
-        std::cout << "Недостаточно средств! Нужно: " << selectedPrice 
+        std::cout << "Недостаточно средств! Нужно: " << selectedPrice
                   << " руб. Внесено: " << cash << " руб." << std::endl;
         return false;
     }
 }
 void Automata::cancel() {
     if (state == State::ACCEPT) {
-        std::cout << "Операция отменена.<< std::endl;
+        std::cout << "Операция отменена."<< std::endl;
         cash = 0.0;
         state = State::WAIT;
         std::cout << "Состояние: ОЖИДАНИЕ" << std::endl;
     } else if (state == State::CHECK) {
-        std::cout << "Операция отменена.<< std::endl;
+        std::cout << "Операция отменена."<< std::endl;
         cash = 0.0;
         selectedDrink.clear();
         selectedPrice = 0.0;
@@ -132,7 +132,7 @@ void Automata::cook() {
 }
 void Automata::finish() {
     if (state != State::COOK) {
-        std::cout << "Ошибка: автомат не в состоянии приготовления!" << std::endl;
+        std::cout<< "Автомат не в состоянии приготовления!"<< std::endl;
         return;
     }
     double change = cash - selectedPrice;
