@@ -1,5 +1,5 @@
 // Copyright 2026 Belev Timur
-#ifndef AUTOMATA_H
+#ifndef AUTOMATA_H_
 #define AUTOMATA_H
 
 #include <string>
@@ -38,4 +38,4 @@ class Automata {
     void loadMenu();
     void giveChange();
 };
-#endif
+#endif  // INCLUDE_AUTOMATA_H_
