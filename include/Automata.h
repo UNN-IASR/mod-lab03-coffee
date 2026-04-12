@@ -1,5 +1,6 @@
-#ifndef AUTOMATA_H
-#define AUTOMATA_H
+// Copyright 2026 HirGior
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
 
 #include <string>
 #include <vector>
@@ -13,26 +14,26 @@ enum STATES {
 };
 
 class Automata {
-private:
-    int cash;
-    std::vector<std::string> menu;
-    std::vector<int> prices;
-    STATES state;
-    int selectedIndex;
+    private:
+        int cash;
+        std::vector<std::string> menu;
+        std::vector<int> prices;
+        STATES state;
+        int selectedIndex;
 
-public:
-    Automata();
+    public:
+        Automata();
 
-    void on();
-    void off();
-    void coin(int amount);
-    void getMenu();
-    STATES getState();
-    void choice(int index);
-    void check();
-    void cancel();
-    void cook();
-    void finish();
+        void on();
+        void off();
+        void coin(int amount);
+        void getMenu();
+        STATES getState();
+        void choice(int index);
+        void check();
+        void cancel();
+        void cook();
+        void finish();
 };
 
 #endif
