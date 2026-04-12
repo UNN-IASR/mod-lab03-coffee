@@ -1,5 +1,4 @@
-#pragma once
-
+// Copyright 2026 Maksim Drobyak
 #ifndef AUTOMATA_H
 #define AUTOMATA_H
 
@@ -15,31 +14,29 @@ enum class STATES {
 };
 
 class Automata {
-private:
+ private:
     STATES state;
     int cash;
     std::vector<std::string> menu;
     std::vector<int> prices;
     int selectedItem;
 
-public:
-
+ public:
     Automata();
 
     void on();
     void off();
     void coin(int amount);
     std::string getMenu() const;
-    STATES getState() const; 
+    STATES getState() const;
     bool choice(int index);
     bool check();
     void cancel();
     void cook();
     void finish();
 
-
     int getCash() const;
     int getSelectedItem() const;
 };
 
-#endif
+#endif  // AUTOMATA_H
