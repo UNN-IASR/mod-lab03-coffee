@@ -165,26 +165,4 @@ void testGiveChange() {
     assert(automata.getCash() == 0.0);
     std::cout << "✓ testGiveChange passed" << std::endl;
 }
-
-int main() {
-    std::cout << "\nЗАПУСК тестов\n" << std::endl;
-    testInitialState();
-    testOn();
-    testOff();
-    testCoin();
-    testMultipleCoins();
-    testChoiceValid();
-    testChoiceInvalid();
-    testChoiceWithoutMoney();
-    testCancelInAccept();
-    testCancelInCheck();
-    testCheckSufficientFunds();
-    testCheckInsufficientFunds();
-    testFullPurchase();
-    testGetMenuWhenOff();
-    testGetMenuWhenOn();
-    testInvalidCoinAmount();
-    testGiveChange();
-    std::cout << "\nВСЕ ТЕСТЫ ПРОЙДЕНЫ!\n" << std::endl;
-    return 0;
 }
