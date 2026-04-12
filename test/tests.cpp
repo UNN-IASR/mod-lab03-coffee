@@ -1,23 +1,23 @@
-// Copyright 2022 GHA Test Team
-
+// Copyright 2026 Maksim Drobyak
 #include <gtest/gtest.h>
+
 #include "../include/Automata.h"
 
-TEST(AutomataTest, Off) {
+TEST(AutomataTest, InitialStateOff) {
     Automata a;
     EXPECT_EQ(a.getState(), STATES::OFF);
     EXPECT_EQ(a.getCash(), 0);
     EXPECT_EQ(a.getSelectedItem(), -1);
 }
 
-TEST(AutomataTest, On) {
+TEST(AutomataTest, TurnOn) {
     Automata a;
     a.on();
     EXPECT_EQ(a.getState(), STATES::WAIT);
     EXPECT_EQ(a.getCash(), 0);
 }
 
-TEST(AutomataTest, OnOff) {
+TEST(AutomataTest, TurnOff) {
     Automata a;
     a.on();
     a.off();
@@ -61,7 +61,7 @@ TEST(AutomataTest, ChoiceInvalid) {
     EXPECT_EQ(a.getSelectedItem(), -1);
 }
 
-TEST(AutomataTest, CheckEnough) {
+TEST(AutomataTest, CheckSufficient) {
     Automata a;
     a.on();
     a.coin(100);
@@ -71,7 +71,7 @@ TEST(AutomataTest, CheckEnough) {
     EXPECT_EQ(a.getState(), STATES::COOK);
 }
 
-TEST(AutomataTest, CheckNotEnough) {
+TEST(AutomataTest, CheckInsufficient) {
     Automata a;
     a.on();
     a.coin(20);
@@ -102,7 +102,7 @@ TEST(AutomataTest, CancelFromCheck) {
     EXPECT_EQ(a.getCash(), 0);
 }
 
-TEST(AutomataTest, FullWork) {
+TEST(AutomataTest, FullWorkflow) {
     Automata a;
     a.on();
     a.coin(80);
@@ -115,7 +115,7 @@ TEST(AutomataTest, FullWork) {
     EXPECT_EQ(a.getSelectedItem(), -1);
 }
 
-TEST(AutomataTest, ChoiceExtremeNumbers) {
+TEST(AutomataTest, ChoiceBoundaryNumbers) {
     Automata a;
     a.on();
     a.coin(100);
