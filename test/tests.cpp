@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../include/Automata.h"
+#include "Automata.h"
 
 TEST(AutomataTest, InitialStateIsOff) {
     Automata vm;
@@ -129,7 +129,3 @@ TEST(AutomataTest, OffFailsDuringTransaction) {
     EXPECT_EQ(vm.getState(), STATES::ACCEPT);
 }
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
