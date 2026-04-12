@@ -1,6 +1,6 @@
 // Copyright 2026 Maksim Drobyak
-#ifndef AUTOMATA_H
-#define AUTOMATA_H
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
 
 #include <string>
 #include <vector>
@@ -39,4 +39,4 @@ class Automata {
     int getSelectedItem() const;
 };
 
-#endif  // AUTOMATA_H
+#endif  // INCLUDE_AUTOMATA_H_
