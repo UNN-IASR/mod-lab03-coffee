@@ -1,50 +1,45 @@
+// Copyright 2024 GHA Test Team
+
 #ifndef INCLUDE_AUTOMATA_H_
 #define INCLUDE_AUTOMATA_H_
 
 #include <string>
+#include <utility>
 #include <vector>
 
 enum class STATES {
     OFF,
-    READY,
-    WAIT_MONEY,
-    WAIT_CHOICE,
-    CHECKING,
-    COOKING,
-    FINISHED,
-    CANCELLED
+    WAIT,
+    ACCEPT,
+    CHECK,
+    COOK
 };
+
+std::string stateToStr(STATES s);
 
 class Automata {
  private:
-    int cash;
-    std::vector<std::string> menu;
-    std::vector<int> prices;
-    STATES state;
-    int selectedIndex;
+    int cash_;
+    std::vector<std::string> menu_;
+    std::vector<int> prices_;
+    STATES state_;
+    int selected_idx_;
 
  public:
-    Automata();
-    Automata(const std::vector<std::string>& menu,
-             const std::vector<int>& prices);
-
-    void on();
-    void off();
-
-    void coin(int amount);
-
-    std::string getMenu() const;
+    explicit Automata(std::vector<std::string> menu = {},
+                      std::vector<int> prices = {});
+    bool on();
+    bool off();
+    bool coin(int amount);
+    std::vector<std::pair<std::string, int>> getMenu() const;
     STATES getState() const;
-
-    std::string choice(int index);
+    bool choice(int index);
     bool check() const;
-
-    std::string cook();
-    int cancel();
-    std::string finish();
+    bool cancel();
+    bool cook();
+    bool finish();
 
     int getCash() const;
-    int getSelectedIndex() const;
 };
 
-#endif  
+#endif  // INCLUDE_AUTOMATA_H_
