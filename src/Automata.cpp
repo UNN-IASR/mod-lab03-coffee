@@ -35,7 +35,8 @@ STATES Automata::getState() const {
     return state;
 }
 void Automata::choice(int idx) {
-    if (state == STATES::ACCEPT && idx >= 0 && idx < static_cast<int>(menu.size()))
+    if (state == STATES::ACCEPT && idx >= 0 &&
+        idx < static_cast<int>(menu.size()))
         state = STATES::CHECK;
 }
 void Automata::check() {

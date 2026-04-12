@@ -2,10 +2,6 @@
 
 #include <iostream>
 #include "../include/Automata.h"
-int main() {
-    return demo();
-}
-
 int demo() {
     Automata a;
     a.on();
@@ -17,4 +13,7 @@ int demo() {
     a.finish();
     a.off();
     return 0;
+}
+int main() {
+    return demo();
 }
