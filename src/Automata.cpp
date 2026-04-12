@@ -2,11 +2,12 @@
 
 #include "Automata.h"
 #include <sstream>
+#include <string>
 void Automata::loadMenu() {
     menu = { "tea", "coffee", "milk" };
     prices = { 30, 50, 40 };
 }
-Automata::Automata() { 
+Automata::Automata() {
     loadMenu();
 }
 void Automata::on() {
@@ -34,7 +35,7 @@ STATES Automata::getState() const {
     return state;
 }
 void Automata::choice(int idx) {
-    if (state == STATES::ACCEPT && idx >= 0 && idx < (int)menu.size())
+    if (state == STATES::ACCEPT && idx >= 0 && idx < static_cast<int>(menu.size()))
         state = STATES::CHECK;
 }
 void Automata::check() {

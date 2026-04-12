@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "../include/Automata.h"
-int main() {
+int demo() {
     Automata a;
     a.on();
     std::cout << a.etMenu();
