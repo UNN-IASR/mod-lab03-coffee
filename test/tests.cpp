@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Automata.h"
+#include "../include/Automata.h"
 
 TEST(AutomataTest, InitialStateIsOff)
 {
