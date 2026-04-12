@@ -42,38 +42,39 @@ STATES Automata::getState() {
 }
 
 void Automata::choice(int index) {
-    if (state == ACCEPT) {
+    if (state == ACCEPT && index >= 0 && index < menu.size()) {
         selectedIndex = index;
         state = CHECK;
     }
 }
 
 void Automata::check() {
-    if (state == CHECK) {
+    if (state == CHECK && selectedIndex >= 0) {
         if (cash >= prices[selectedIndex]) {
             state = COOK;
         } else {
-            std::cout << "Not enough money\n";
             state = WAIT;
         }
     }
 }
 
 void Automata::cancel() {
-    std::cout << "Canceled. Return: " << cash << "\n";
-    cash = 0;
-    state = WAIT;
+    if (state != OFF) {
+        std::cout << "Canceled. Return: " << cash << "\n";
+        cash = 0;
+        state = WAIT;
+    }
 }
 
 void Automata::cook() {
     if (state == COOK) {
         std::cout << "Cooking " << menu[selectedIndex] << "...\n";
         cash -= prices[selectedIndex];
-        state = WAIT;
     }
 }
 
 void Automata::finish() {
-    std::cout << "Take your drink\n";
-    state = WAIT;
+    if (state == WAIT) {
+        std::cout << "Take your drink\n";
+    }
 }
