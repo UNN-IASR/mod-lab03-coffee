@@ -1,4 +1,4 @@
-#ifndef AUTOMATA_H
+// Copyright 2026 Belev Timur
 #define AUTOMATA_H
 
 #include <string>
@@ -13,7 +13,7 @@ enum class State {
 };
 
 class Automata {
-private:
+ private:
     double cash;
     std::vector<std::string> menu;
     std::vector<double> prices;
@@ -21,7 +21,7 @@ private:
     std::string selectedDrink;
     double selectedPrice;
 
-public:
+ public:
     Automata();
     void on();
     void off();
@@ -37,5 +37,3 @@ public:
     void loadMenu();
     void giveChange();
 };
-
-#endif
