@@ -45,7 +45,7 @@ void Automata::coin(double amount) {
     }
 }
 
-Automata::getMenu() {
+std::string Automata::getMenu() {
     if (state == State::OFF) {
         return "Автомат выключен. Включите автомат для просмотра меню.";
     }
