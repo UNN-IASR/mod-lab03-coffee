@@ -2,8 +2,7 @@
 #include "Automata.h"
 #include <iostream>
 
-int main()
-{
+int main() {
     std::cout << "Example 1\n" << std::endl;
     Automata a;
     a.on();

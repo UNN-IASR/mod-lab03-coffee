@@ -2,6 +2,7 @@
 #include "Automata.h"
 #include <iostream>
 #include <sstream>
+#include <string>
 Automata::Automata() {
     cash = 0;
     menu = { "Tea", "Coffee", "Milk", "Hot chocolate", "Mulled wine" };
@@ -18,7 +19,7 @@ void Automata::on() {
         std::cout << "The machine is already on!" << std::endl;
     }
 }
-void Automata::off(){
+void Automata::off() {
     if (state == STATES::WAIT) {
         state = STATES::OFF;
         std::cout << "The machine turned off" << std::endl;
@@ -35,21 +36,22 @@ void Automata::coin(int money) {
     if (state == STATES::WAIT) {
         cash += money;
         state = STATES::ACCEPT;
-        std::cout << "The machine accepts money. Introduced: " 
+        std::cout << "The machine accepts money. Introduced: "
             << money << " rubles'. Balance: " << cash << std::endl;
     }
-	else if(state == STATES::ACCEPT){
+    else if (state == STATES::ACCEPT) {
         cash += money;
-        std::cout << "The machine accepts money. Introduced: " 
+        std::cout << "The machine accepts money. Introduced: "
             << money << " rubles'. Balance: " << cash << std::endl;
     }
     else if (state == STATES::CHECK) {
         cash += money;
-        std::cout << "The machine accepts money. Introduced: " 
+        std::cout << "The machine accepts money. Introduced: "
             << money << " rubles'. Balance: " << cash << std::endl;
         check();
     } else {
-        std::cout << "You cannot deposit money in the current state!" << std::endl;
+        std::cout << "You cannot deposit money "
+            << "in the current state!" << std::endl;
     }
 }
 std::string Automata::getMenu() {
@@ -65,14 +67,14 @@ STATES Automata::getState() {
     return state;
 }
 void Automata::choice(int numDrink) {
-    if (numDrink < 0 || numDrink >= (int)menu.size()) {
+    if (numDrink < 0 || numDrink >= static_cast<int>(menu.size())) {
         std::cout << "Wrong choice of drink! Try again" << std::endl;
         return;
     }
     if (state == STATES::ACCEPT) {
         selectedDrink = numDrink;
         state = STATES::CHECK;
-        std::cout << "Drink selected: " << menu[numDrink] 
+        std::cout << "Drink selected: " << menu[numDrink]
             << "; Cost: " << prices[numDrink] << std::endl;
         check();
     } else {
@@ -126,7 +128,7 @@ void Automata::finish() {
         int change = cash - prices[selectedDrink];
         cash = 0;
         selectedDrink = -1;
-        std::cout << "Take your drink. Change: " 
+        std::cout << "Take your drink. Change: "
             << change << " rubles'." << std::endl;
     } else {
         std::cout << "The operation cannot be performed "

@@ -18,7 +18,7 @@ class Automata {
     std::vector<int> prices;
     STATES state;
     int selectedDrink;
-public:
+ public:
     Automata();
     void on();
     void off();
