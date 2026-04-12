@@ -1,4 +1,3 @@
-// Copyright 2022 GHA Test Team
 // Copyright 2024 GHA Test Team
 
 #include <iostream>
