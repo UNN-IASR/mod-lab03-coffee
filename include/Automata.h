@@ -3,24 +3,26 @@
 #include <vector>
 #include <string>
 
+// Состояния автомата (согласно схеме)
 enum class STATES {
-    OFF,
-    WAIT,
-    ACCEPT,
-    CHECK,
-    COOK
+    OFF,    // Выключено
+    WAIT,   // Ожидание
+    ACCEPT, // Прием денег
+    CHECK,  // Проверка наличности
+    COOK    // Приготовление
 };
 
 class Automata {
-private:
-    int cash;
-    std::vector<std::string> menu;
-    std::vector<int> prices;
-    STATES state;
+ private:
+    int cash;                       // Текущий баланс
+    std::vector<std::string> menu;  // Названия напитков
+    std::vector<int> prices;        // Цены напитков
+    STATES state;                   // Текущее состояние
 
-public:
+ public:
     Automata();
 
+    // Методы переходов
     void on();
     void off();
     void coin(int amount);

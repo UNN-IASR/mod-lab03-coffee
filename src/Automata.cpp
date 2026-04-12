@@ -52,13 +52,11 @@ void Automata::choice(int index) {
         if (index > 0 && index <= menu.size()) {
             std::cout << "Выбран напиток: " << menu[index - 1]
                 << ". Проверка средств..." << std::endl;
-        }
-        else {
+        } else {
             std::cout << "Неверный выбор напитка!" << std::endl;
             cancel();
         }
-    }
-    else {
+    } else {
         std::cout << "Ошибка: сначала внесите деньги." << std::endl;
     }
 }
@@ -67,8 +65,7 @@ bool Automata::check(int index) {
     if (state == STATES::CHECK) {
         if (index > 0 && index <= menu.size() && cash >= prices[index - 1]) {
             return true;
-        }
-        else {
+        } else {
             std::cout << "Недостаточно средств для этого напитка!" << std::endl;
             return false;
         }
@@ -92,8 +89,7 @@ void Automata::cook(int index) {
             cash -= prices[index - 1];
             std::cout << "Приготовление " << menu[index - 1]
                 << "..." << std::endl;
-        }
-        else {
+        } else {
             cancel();
         }
     }
