@@ -2,13 +2,13 @@
 #include <gtest/gtest.h>
 #include "Automata.h"
 
-//  Тест 1:
+// Тест 1
 TEST(AutomataTest, InitialStateIsOff) {
     Automata a;
     EXPECT_EQ(a.getState(), STATES::OFF);
 }
 
-//Тест 2
+// Тест 2
 TEST(AutomataTest, OnSwitchesToWait) {
     Automata a;
     a.on();
@@ -84,7 +84,7 @@ TEST(AutomataTest, CashIsZeroAfterPurchase) {
     Automata a;
     a.on();
     a.coin(100);
-    a.choice(1);  // Чай = 30 руб.
+    a.choice(1);
     a.check();
     EXPECT_EQ(a.getCash(), 0);
 }

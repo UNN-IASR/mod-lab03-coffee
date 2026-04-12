@@ -1,3 +1,4 @@
+// Copyright 2022 GHA Test Team
 #include <iostream>
 #include "Automata.h"
 
@@ -16,7 +17,7 @@ int main() {
     a.coin(50);
     a.cancel();
 
-    std::cout << "\n=== Сценарий 3: Недостаточно средств, довнос ===\n";
+    std::cout << "\n=== Сценарий 3: Недостаточно средств, доп. внос ===\n";
     a.coin(20);
     a.choice(1);  // Чай = 30 руб.
     a.check();    // не хватает 10 руб.
