@@ -4,6 +4,7 @@
 #include "Automata.h"
 #include <cassert>
 #include <iostream>
+#include <string>
 
 void testInitialState() {
     Automata automata;
@@ -166,8 +167,7 @@ void testGiveChange() {
 }
 
 int main() {
-    std::cout << "\n========== ЗАПУСК МОДУЛЬНЫХ ТЕСТОВ ==========\n" << std::endl;
-    
+    std::cout << "\nЗАПУСК тестов\n" << std::endl;
     testInitialState();
     testOn();
     testOff();
@@ -185,8 +185,6 @@ int main() {
     testGetMenuWhenOn();
     testInvalidCoinAmount();
     testGiveChange();
-    
-    std::cout << "\n========== ВСЕ ТЕСТЫ УСПЕШНО ПРОЙДЕНЫ! ==========\n" << std::endl;
-    
+    std::cout << "\nВСЕ ТЕСТЫ ПРОЙДЕНЫ!\n" << std::endl;
     return 0;
 }
