@@ -1,39 +1,56 @@
+// Copyright 2024 GHA Test Team
+
 #include <iostream>
-#include <vector>
 
-#include "Automata.h"
+#include "../include/Automata.h"
 
-int main() {
-    Automata machine(
-        {"Tea", "Coffee", "Cappuccino", "Milk"},
-        {30, 50, 80, 25}
-    );
+void runDemo() {
+    std::cout << "\n========== DEMO ==========\n";
 
-    std::cout << "=== Hot Drinks Automata Demo ===" << std::endl;
+    Automata vm;
+    std::cout << "1. Start: " << stateToStr(vm.getState()) << "\n";
 
-    machine.on();
-    std::cout << "Machine is on" << std::endl;
+    vm.on();
+    std::cout << "2. on(): " << stateToStr(vm.getState()) << "\n";
 
-    std::cout << "\nMenu:\n" << machine.getMenu() << std::endl;
+    vm.coin(30);
+    std::cout << "3. coin(30): Balance=" << vm.getCash()
+              << ", State=" << stateToStr(vm.getState()) << "\n";
 
-    machine.coin(100);
-    std::cout << "\nInserted 100 rub." << std::endl;
-
-    std::cout << "Selected: " << machine.choice(1) << std::endl;
-
-    if (machine.check()) {
-        std::cout << machine.cook() << std::endl;
-        std::cout << machine.finish() << std::endl;
+    auto menu = vm.getMenu();
+    std::cout << "4. menu:\n";
+    for (size_t i = 0; i < menu.size(); ++i) {
+        std::cout << "   " << i << ". "
+                  << menu[i].first << " - "
+                  << menu[i].second << "\n";
     }
 
-    std::cout << "\nSecond session:" << std::endl;
-    machine.coin(40);
-    std::cout << "Inserted 40 rub." << std::endl;
-    std::cout << "Refund: " << machine.cancel() << " rub." << std::endl;
-    std::cout << machine.finish() << std::endl;
+    vm.choice(0);
+    std::cout << "5. choice(0): " << stateToStr(vm.getState()) << "\n";
 
-    machine.off();
-    std::cout << "\nMachine is off" << std::endl;
+    std::cout << "6. check(): " << (vm.check() ? "enough" : "not enough")
+              << "\n";
 
+    if (!vm.check()) {
+        vm.coin(20);
+        std::cout << "7. coin(20): Balance=" << vm.getCash()
+                  << ", State=" << stateToStr(vm.getState()) << "\n";
+        vm.choice(0);
+    }
+
+    vm.cook();
+    std::cout << "8. cook(): Balance=" << vm.getCash()
+              << ", State=" << stateToStr(vm.getState()) << "\n";
+
+    vm.finish();
+    std::cout << "9. finish(): State=" << stateToStr(vm.getState()) << "\n";
+
+    vm.off();
+    std::cout << "10. off(): State=" << stateToStr(vm.getState()) << "\n";
+    std::cout << "==========================\n";
+}
+
+int main() {
+    runDemo();
     return 0;
 }
