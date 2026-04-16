@@ -28,7 +28,7 @@ void Automata::off() {
 
 void Automata::coin(double amount) {
   if (state == STATES::WAIT || state == STATES::ACCEPT) {
-    if (amount <= 0) {  
+    if (amount <= 0) {
       throw std::runtime_error("invalid amount value");
     }
     state = STATES::ACCEPT;
@@ -39,7 +39,7 @@ void Automata::coin(double amount) {
 std::vector<menuItem> Automata::getMenu() {
   if (state != STATES::OFF) {
     for (menuItem item : menu) {
-      outStream << item.itemName << ": " << item.itemName << "\n";
+      outStream << item.itemName << ": " << item.itemPrice << "\n";
     }
     return menu;
   }
@@ -82,12 +82,14 @@ double Automata::choice(size_t itemIndex) {
         outStream << "OK, change: " << toReturn << "\n";
         return toReturn;
       } else {
-        outStream << "NOT ENOUGHT MONEY, change: " << cancel() << "\n";
-        return cancel();
+        double toReturn = cancel();
+        outStream << "NOT ENOUGHT MONEY, change: " << toReturn << "\n";
+        return toReturn;
       }
     } else {
-      outStream << "INVALID ITEM, change: " << cancel() << "\n";
-      return cancel();
+      double toReturn = cancel();
+      outStream << "INVALID ITEM, change: " << toReturn << "\n";
+      return toReturn;
     }
   }
   outStream << "INACCESSIBLE, change: " << 0 << "\n";
