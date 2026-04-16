@@ -25,7 +25,7 @@ class Automata {
   bool check(size_t itemIndex);
 
  public:
-  Automata(std::ostream& os);
+  explicit Automata(std::ostream& os);
   void on();
   void off();
   void coin(double amount);

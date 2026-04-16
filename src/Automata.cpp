@@ -5,6 +5,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <thread>
+#include <vector>
 
 Automata::Automata(std::ostream& os) : outStream{os} {
   menu.push_back(menuItem{"Espresso", 35});
