@@ -1,5 +1,6 @@
 // Copyright 2024 <Copyright Owner>
 #include <gtest/gtest.h>
+#include <string>
 #include "Automata.h"
 
 TEST(AutomataTest, InitialState) {
@@ -35,7 +36,7 @@ TEST(AutomataTest, CheckValidChoice) {
     Automata a;
     a.on();
     a.coin(2.0);
-    EXPECT_TRUE(a.check(1)); 
+    EXPECT_TRUE(a.check(1));
 }
 
 TEST(AutomataTest, CheckInvalidChoice) {
@@ -43,6 +44,14 @@ TEST(AutomataTest, CheckInvalidChoice) {
     a.on();
     a.coin(1.0);
     EXPECT_FALSE(a.check(1));
+}
+
+TEST(AutomataTest, CheckOutOfRangeChoice) {
+    Automata a;
+    a.on();
+    a.coin(2.0);
+    EXPECT_FALSE(a.check(5));
+    EXPECT_FALSE(a.check(-1));
 }
 
 TEST(AutomataTest, MakeChoice) {
@@ -82,7 +91,31 @@ TEST(AutomataTest, GetMenu) {
     EXPECT_TRUE(menu.find("Milk") != std::string::npos);
 }
 
-int main(int argc, char** argv) {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+TEST(AutomataTest, CannotChooseWhenOff) {
+    Automata a;
+    a.choice(1);
+    EXPECT_EQ(a.getState(), OFF);
+}
+
+TEST(AutomataTest, CannotInsertNegativeCoin) {
+    Automata a;
+    a.on();
+    a.coin(-1.0);
+    EXPECT_EQ(a.getCash(), 0);
+}
+
+TEST(AutomataTest, MultipleCoins) {
+    Automata a;
+    a.on();
+    a.coin(1.0);
+    a.coin(0.5);
+    EXPECT_EQ(a.getCash(), 1.5);
+}
+
+TEST(AutomataTest, FinishWithoutCooking) {
+    Automata a;
+    a.on();
+    a.coin(2.0);
+    a.finish();
+    EXPECT_NE(a.getCash(), 0);  // Cash should still be there
 }
