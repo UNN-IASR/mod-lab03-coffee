@@ -1,6 +1,7 @@
 // Copyright 2024 <Copyright Owner>
 #include "Automata.h"
 #include <sstream>
+#include <string>
 
 Automata::Automata() {
     cash = 0;
