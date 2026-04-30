@@ -1,4 +1,5 @@
-﻿#include "/include/Automata.h"
+// Copyright 2024 <Copyright Owner>
+#include "Automata.h"
 #include <sstream>
 
 Automata::Automata() {
@@ -10,7 +11,9 @@ Automata::Automata() {
 }
 
 void Automata::on() {
-    state = WAITING_FOR_COIN;
+    if (state == OFF) {
+        state = WAITING_FOR_COIN;
+    }
 }
 
 void Automata::off() {
@@ -19,23 +22,24 @@ void Automata::off() {
 }
 
 void Automata::coin(double amount) {
-    if (state == WAITING_FOR_COIN || state == WAITING_FOR_CHOICE) {
+    if (amount > 0 && (state == WAITING_FOR_COIN || state == WAITING_FOR_CHOICE)) {
         cash += amount;
-        state = WAITING_FOR_CHOICE;
+        if (state == WAITING_FOR_COIN) {
+            state = WAITING_FOR_CHOICE;
+        }
     }
 }
 
-string Automata::getMenu() {
-    stringstream out;
+std::string Automata::getMenu() {
+    std::stringstream out;
 
-    for (int i = 0; i < menu.size(); i++) {
+    for (int i = 0; i < static_cast<int>(menu.size()); i++) {
         out << i << ": " << menu[i]
             << " - " << prices[i] << "\n";
     }
 
     return out.str();
 }
-
 
 STATES Automata::getState() {
     return state;
@@ -46,6 +50,9 @@ double Automata::getCash() {
 }
 
 bool Automata::check(int index) {
+    if (index < 0 || index >= static_cast<int>(prices.size())) {
+        return false;
+    }
     return cash >= prices[index];
 }
 
@@ -56,21 +63,24 @@ void Automata::choice(int index) {
         state = COOKING;
         cook();
     }
-    else {
+}
+
+void Automata::cook() {
+    if (state == COOKING) {
+        state = FINISHED;
+    }
+}
+
+void Automata::finish() {
+    if (state == FINISHED) {
+        cash = 0;
         state = WAITING_FOR_COIN;
     }
 }
 
-void Automata::cook() {
-    state = FINISHED;
-}
-
-void Automata::finish() {
-    cash = 0;
-    state = WAITING_FOR_COIN;
-}
-
 void Automata::cancel() {
-    cash = 0;
-    state = WAITING_FOR_COIN;
+    if (state == WAITING_FOR_COIN || state == WAITING_FOR_CHOICE) {
+        cash = 0;
+        state = WAITING_FOR_COIN;
+    }
 }
