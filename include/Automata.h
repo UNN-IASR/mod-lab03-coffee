@@ -1,8 +1,10 @@
+// Copyright 2024 <Copyright Owner>
 #pragma once
+#ifndef AUTOMATA_H
+#define AUTOMATA_H
+
 #include <vector>
 #include <string>
-
-using namespace std;
 
 enum STATES {
     OFF,
@@ -15,8 +17,8 @@ enum STATES {
 class Automata {
 private:
     double cash;
-    vector<string> menu;
-    vector<double> prices;
+    std::vector<std::string> menu;
+    std::vector<double> prices;
     STATES state;
 
 public:
@@ -27,7 +29,7 @@ public:
 
     void coin(double amount);
 
-    string getMenu();
+    std::string getMenu();
     STATES getState();
 
     void choice(int index);
@@ -40,3 +42,5 @@ public:
 
     double getCash();
 };
+
+#endif  // AUTOMATA_H
