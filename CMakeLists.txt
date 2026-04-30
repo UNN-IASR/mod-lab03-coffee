@@ -1,17 +1,12 @@
-add_executable(mod-lab03-coffee.test
-    tests.cpp
-)
+cmake_minimum_required(VERSION 3.10.2)
+project(mod-lab03-coffee)
 
-target_link_libraries(mod-lab03-coffee.test
-    mod-lab03-coffee
-    gtest
-    gtest_main
-    pthread
-)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -g -Werror")
 
-target_include_directories(mod-lab03-coffee.test
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/../include
-)
+set(tool_dest "bin")
+set(lib_dest "lib")
+set(include_dest "include/")
 
-add_test(NAME mod-lab03-coffee.test COMMAND mod-lab03-coffee.test)
+add_subdirectory(src)
+add_subdirectory(test)
