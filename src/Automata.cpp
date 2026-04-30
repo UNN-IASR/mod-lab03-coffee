@@ -18,7 +18,7 @@ void Automata::on() {
 }
 
 void Automata::off() {
-    state = OFF;
+    state = OFF; 
     cash = 0;
 }
 
