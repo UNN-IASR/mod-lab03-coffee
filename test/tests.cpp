@@ -1,115 +1,88 @@
-﻿#include "/include/Automata.h"
-#include <cassert>
-#include <iostream>
+// Copyright 2024 <Copyright Owner>
+#include <gtest/gtest.h>
+#include "Automata.h"
 
-// 1. OFF при создании
-void test_initial_state() {
+TEST(AutomataTest, InitialState) {
     Automata a;
-    assert(a.getState() == OFF);
+    EXPECT_EQ(a.getState(), OFF);
+    EXPECT_EQ(a.getCash(), 0);
 }
 
-// 2. ON()
-void test_on() {
-    Automata a;
-    a.on();
-    assert(a.getState() == WAITING_FOR_COIN);
-}
-
-// 3. OFF()
-void test_off() {
+TEST(AutomataTest, TurnOn) {
     Automata a;
     a.on();
-    a.off();
-    assert(a.getState() == OFF);
+    EXPECT_EQ(a.getState(), WAITING_FOR_COIN);
 }
 
-// 4. coin()
-void test_coin() {
-    Automata a;
-    a.on();
-    a.coin(2.0);
-    assert(a.getCash() == 2.0);
-}
-
-// 5. getMenu()
-void test_get_menu() {
-    Automata a;
-    std::string menu = a.getMenu();
-
-    assert(menu.find("Tea") != std::string::npos);
-    assert(menu.find("Coffee") != std::string::npos);
-}
-
-// 6. check() false
-void test_check_false() {
+TEST(AutomataTest, TurnOff) {
     Automata a;
     a.on();
     a.coin(1.0);
-    assert(a.check(1) == false);
+    a.off();
+    EXPECT_EQ(a.getState(), OFF);
+    EXPECT_EQ(a.getCash(), 0);
 }
 
-// 7. check() true
-void test_check_true() {
+TEST(AutomataTest, InsertCoin) {
     Automata a;
     a.on();
-    a.coin(5.0);
-    assert(a.check(1) == true);
+    a.coin(2.5);
+    EXPECT_EQ(a.getCash(), 2.5);
+    EXPECT_EQ(a.getState(), WAITING_FOR_CHOICE);
 }
 
-// 8. choice()
-void test_choice_success() {
+TEST(AutomataTest, CheckValidChoice) {
     Automata a;
     a.on();
-    a.coin(5.0);
+    a.coin(2.0);
+    EXPECT_TRUE(a.check(1)); 
+}
+
+TEST(AutomataTest, CheckInvalidChoice) {
+    Automata a;
+    a.on();
+    a.coin(1.0);
+    EXPECT_FALSE(a.check(1));
+}
+
+TEST(AutomataTest, MakeChoice) {
+    Automata a;
+    a.on();
+    a.coin(2.0);
     a.choice(1);
-    assert(a.getState() == FINISHED);
+    EXPECT_EQ(a.getState(), COOKING);
 }
 
-// 9. finish()
-void test_finish() {
+TEST(AutomataTest, CookAndFinish) {
     Automata a;
     a.on();
-    a.coin(5.0);
+    a.coin(2.0);
     a.choice(1);
+    EXPECT_EQ(a.getState(), COOKING);
+    EXPECT_EQ(a.getState(), FINISHED);
     a.finish();
-
-    assert(a.getState() == WAITING_FOR_COIN);
-    assert(a.getCash() == 0);
+    EXPECT_EQ(a.getState(), WAITING_FOR_COIN);
+    EXPECT_EQ(a.getCash(), 0);
 }
 
-// 10. cancel()
-void test_cancel() {
+TEST(AutomataTest, CancelBeforeChoice) {
     Automata a;
     a.on();
-    a.coin(3.0);
+    a.coin(2.0);
     a.cancel();
-
-    assert(a.getCash() == 0);
-    assert(a.getState() == WAITING_FOR_COIN);
+    EXPECT_EQ(a.getCash(), 0);
+    EXPECT_EQ(a.getState(), WAITING_FOR_COIN);
 }
 
-// 11. choice без денег
-void test_choice_fail() {
+TEST(AutomataTest, GetMenu) {
     Automata a;
-    a.on();
-    a.coin(0.5);
-    a.choice(1);
-
-    assert(a.getState() == WAITING_FOR_COIN);
+    std::string menu = a.getMenu();
+    EXPECT_TRUE(menu.find("Tea") != std::string::npos);
+    EXPECT_TRUE(menu.find("Coffee") != std::string::npos);
+    EXPECT_TRUE(menu.find("Milk") != std::string::npos);
 }
 
-int main() {
-    test_initial_state();
-    test_on();
-    test_off();
-    test_coin();
-    test_get_menu();
-    test_check_false();
-    test_check_true();
-    test_choice_success();
-    test_finish();
-    test_cancel();
-    test_choice_fail();
-
-    std::cout << "ALL TESTS PASSED\n";
+int main(int argc, char** argv) {
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
