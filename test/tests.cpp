@@ -1,167 +1,147 @@
 // Copyright 2022 GHA Test Team
-
 #include <gtest/gtest.h>
 #include "Automata.h"
-#include <cassert>
-#include <iostream>
-#include <string>
 
-void testInitialState() {
-    Automata automata;
-    assert(automata.getState() == State::OFF);
-    assert(automata.getCash() == 0.0);
-    std::cout << "✓ testInitialState passed" << std::endl;
+TEST(Testmach, TurnOnFromOff) {
+    Automata a;
+    a.on();
+    EXPECT_EQ(a.getState(), WAIT);
 }
 
-void testOn() {
-    Automata automata;
-    automata.on();
-    assert(automata.getState() == State::WAIT);
-    std::cout << "✓ testOn passed" << std::endl;
+TEST(Testmach, InitialCashIsZero) {
+    Automata a;
+    EXPECT_DOUBLE_EQ(a.getCash(), 0.0);
 }
 
-void testOff() {
-    Automata automata;
-    automata.on();
-    automata.off();
-    assert(automata.getState() == State::OFF);
-    std::cout << "✓ testOff passed" << std::endl;
+TEST(Testmach, InvalidChoiceIgnored) {
+    Automata a;
+    a.on();
+    a.coin(100);
+    EXPECT_FALSE(a.choice(99));
+    EXPECT_EQ(a.getState(), ACCEPT);
 }
 
-void testCoin() {
-    Automata automata;
-    automata.on();
-    automata.coin(100.0);
-    assert(automata.getState() == State::ACCEPT);
-    assert(automata.getCash() == 100.0);
-    std::cout << "✓ testCoin passed" << std::endl;
+TEST(Testmach, CancelDuringAcceptResetsCash) {
+    Automata a;
+    a.on();
+    a.coin(150);
+    a.cancel();
+    EXPECT_DOUBLE_EQ(a.getCash(), 0.0);
+    EXPECT_EQ(a.getState(), WAIT);
 }
 
-void testMultipleCoins() {
-    Automata automata;
-    automata.on();
-    automata.coin(50.0);
-    automata.coin(30.0);
-    automata.coin(20.0);
-    assert(automata.getCash() == 100.0);
-    std::cout << "✓ testMultipleCoins passed" << std::endl;
+TEST(Testmach, EnoughMoneyForCoffee) {
+    Automata a;
+    a.on();
+    a.coin(80);
+    a.choice(2);
+    EXPECT_TRUE(a.check());
 }
 
-void testChoiceValid() {
-    Automata automata;
-    automata.on();
-    automata.coin(100.0);
-    bool result = automata.choice(1);
-    assert(result == true);
-    assert(automata.getState() == State::CHECK);
-    std::cout << "✓ testChoiceValid passed" << std::endl;
+TEST(Testmach, PrepareCappuccino) {
+    Automata a;
+    a.on();
+    a.coin(120);
+    a.choice(3);
+    a.cook();
+    EXPECT_EQ(a.getState(), COOK);
 }
 
-void testChoiceInvalid() {
-    Automata automata;
-    automata.on();
-    automata.coin(100.0);
-    bool result = automata.choice(10);
-    assert(result == false);
-    assert(automata.getState() == State::ACCEPT);
-    std::cout << "✓ testChoiceInvalid passed" << std::endl;
+TEST(Testmach, FinishPurchaseGivesChange) {
+    Automata a;
+    a.on();
+    a.coin(200);
+    a.choice(5);
+    a.cook();
+    a.finish();
+    EXPECT_EQ(a.getState(), WAIT);
+    EXPECT_DOUBLE_EQ(a.getCash(), 0.0);
 }
 
-void testChoiceWithoutMoney() {
-    Automata automata;
-    automata.on();
-    bool result = automata.choice(1);
-    assert(result == false);
-    assert(automata.getState() == State::WAIT);
-    std::cout << "✓ testChoiceWithoutMoney passed" << std::endl;
+TEST(Testmach, OffStateInitially) {
+    Automata a;
+    EXPECT_EQ(a.getState(), OFF);
 }
 
-void testCancelInAccept() {
-    Automata automata;
-    automata.on();
-    automata.coin(100.0);
-    automata.cancel();
-    assert(automata.getState() == State::WAIT);
-    assert(automata.getCash() == 0.0);
-    std::cout << "✓ testCancelInAccept passed" << std::endl;
+TEST(Testmach, NegativeCoinDoesNothing) {
+    Automata a;
+    a.on();
+    a.coin(-10);
+    EXPECT_EQ(a.getState(), WAIT);
+    EXPECT_DOUBLE_EQ(a.getCash(), 0.0);
 }
 
-void testCancelInCheck() {
-    Automata automata;
-    automata.on();
-    automata.coin(100.0);
-    automata.choice(1);
-    automata.cancel();
-    assert(automata.getState() == State::WAIT);
-    assert(automata.getCash() == 0.0);
-    std::cout << "✓ testCancelInCheck passed" << std::endl;
+TEST(Testmach, ChoiceWithoutMoneyStaysInWait) {
+    Automata a;
+    a.on();
+    a.choice(2);
+    EXPECT_EQ(a.getState(), WAIT);
 }
 
-void testCheckSufficientFunds() {
-    Automata automata;
-    automata.on();
-    automata.coin(100.0);
-    automata.choice(1);
-    bool result = automata.check();
-    assert(result == true);
-    std::cout << "✓ testCheckSufficientFunds passed" << std::endl;
+TEST(Testmach, CancelDuringCheck) {
+    Automata a;
+    a.on();
+    a.coin(100);
+    a.choice(1);
+    a.cancel();
+    EXPECT_EQ(a.getState(), WAIT);
+    EXPECT_DOUBLE_EQ(a.getCash(), 0.0);
 }
 
-void testCheckInsufficientFunds() {
-    Automata automata;
-    automata.on();
-    automata.coin(30.0);
-    automata.choice(2);
-    bool result = automata.check();
-    assert(result == false);
-    std::cout << "✓ testCheckInsufficientFunds passed" << std::endl;
+TEST(Testmach, CookWithoutCheckStaysInAccept) {
+    Automata a;
+    a.on();
+    a.coin(60);
+    a.cook();
+    EXPECT_EQ(a.getState(), ACCEPT);
 }
 
-void testFullPurchase() {
-    Automata automata;
-    automata.on();
-    automata.coin(100.0);
-    automata.choice(1);
-    automata.cook();
-    automata.finish();
-    assert(automata.getState() == State::WAIT);
-    assert(automata.getCash() == 0.0);
-    std::cout << "✓ testFullPurchase passed" << std::endl;
+TEST(Testmach, MenuContainsHotChocolate) {
+    Automata a;
+    a.on();
+    std::string m = a.getMenu();
+    EXPECT_NE(m.find("Горячий шоколад"), std::string::npos);
 }
 
-void testGetMenuWhenOff() {
-    Automata automata;
-    std::string menu = automata.getMenu();
-    assert(menu.find("выключен") != std::string::npos);
-    std::cout << "✓ testGetMenuWhenOff passed" << std::endl;
+TEST(Testmach, NotEnoughForCoffee) {
+    Automata a;
+    a.on();
+    a.coin(70);
+    a.choice(2);
+    EXPECT_FALSE(a.check());
 }
 
-void testGetMenuWhenOn() {
-    Automata automata;
-    automata.on();
-    std::string menu = automata.getMenu();
-    assert(menu.find("Чай") != std::string::npos);
-    assert(menu.find("Кофе") != std::string::npos);
-    std::cout << "✓ testGetMenuWhenOn passed" << std::endl;
+TEST(Testmach, TurnOffWhenWait) {
+    Automata a;
+    a.on();
+    a.off();
+    EXPECT_EQ(a.getState(), OFF);
 }
 
-void testInvalidCoinAmount() {
-    Automata automata;
-    automata.on();
-    automata.coin(-10.0);
-    assert(automata.getCash() == 0.0);
-    automata.coin(0.0);
-    assert(automata.getCash() == 0.0);
-    std::cout << "✓ testInvalidCoinAmount passed" << std::endl;
+TEST(Testmach, FirstCoinMovesToAccept) {
+    Automata a;
+    a.on();
+    a.coin(25);
+    EXPECT_EQ(a.getState(), ACCEPT);
 }
 
-void testGiveChange() {
-    Automata automata;
-    automata.on();
-    automata.coin(150.0);
-    automata.choice(3);
-    automata.cook();
-    automata.finish();
-    assert(automata.getCash() == 0.0);
-    std::cout << "✓ testGiveChange passed" << std::endl;
+TEST(Testmach, FinishWithoutCookingDoesNothing) {
+    Automata a;
+    a.on();
+    a.finish();
+    EXPECT_EQ(a.getState(), WAIT);
+}
+
+TEST(Testmach, ValidChoiceGoesToCheck) {
+    Automata a;
+    a.on();
+    a.coin(150);
+    a.choice(6);
+    EXPECT_EQ(a.getState(), CHECK);
+}
+
+TEST(Testmach, MenuWhenOffShowsMessage) {
+    Automata a;
+    std::string m = a.getMenu();
+    EXPECT_NE(m.find("выключен"), std::string::npos);
 }
