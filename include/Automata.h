@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-enum class State {
+enum State {
     OFF,
     WAIT,
     ACCEPT,
