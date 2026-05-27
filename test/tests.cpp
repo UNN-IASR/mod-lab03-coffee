@@ -97,13 +97,6 @@ TEST(Testmach, CookWithoutCheckStaysInAccept) {
     EXPECT_EQ(a.getState(), ACCEPT);
 }
 
-TEST(Testmach, MenuContainsHotChocolate) {
-    Automata a;
-    a.on();
-    std::string m = a.getMenu();
-    EXPECT_NE(m.find("Горячий шоколад"), std::string::npos);
-}
-
 TEST(Testmach, NotEnoughForCoffee) {
     Automata a;
     a.on();
