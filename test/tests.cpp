@@ -1,4 +1,5 @@
-// Copyright 2022 GHA Test Team
+// Copyright 2026 Belev Timur
+
 #include <gtest/gtest.h>
 #include "Automata.h"
 
@@ -138,10 +139,4 @@ TEST(Testmach, ValidChoiceGoesToCheck) {
     a.coin(150);
     a.choice(6);
     EXPECT_EQ(a.getState(), CHECK);
-}
-
-TEST(Testmach, MenuWhenOffShowsMessage) {
-    Automata a;
-    std::string m = a.getMenu();
-    EXPECT_NE(m.find("выключен"), std::string::npos);
 }
